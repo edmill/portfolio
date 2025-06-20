@@ -149,7 +149,7 @@ const AboutPage: React.FC = () => {
             console.log('Video failed to load, showing fallback');
           }}
         >
-          <source src={import.meta.env.BASE_URL + 'cafe.mp4'} type="video/mp4" />
+          <source src={import.meta.env.BASE_URL + 'cafe-ani.mp4'} type="video/mp4" />
         </video>
         {/* Fallback background if video fails */}
         <div className="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-200 flex items-center justify-center opacity-0 peer-[video]:opacity-100">
