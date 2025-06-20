@@ -196,11 +196,11 @@ const AboutPage: React.FC = () => {
               </div>
             </div>
             {/* Carousel Content */}
-            <div className="flex-1 relative overflow-hidden min-h-0">
+            <div className="flex-1 relative overflow-visible min-h-0">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`content-${currentSlide}`}
-                  className="absolute inset-0 p-4 md:p-6 flex flex-col justify-start h-full"
+                  className="relative p-4 md:p-6 flex flex-col justify-start h-full"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -50 }}
