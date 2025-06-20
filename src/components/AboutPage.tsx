@@ -21,22 +21,22 @@ const AboutPage: React.FC = () => {
     {
       title: "Welcome",
       content: "I'm Ed Miller, an experience designer based in the greater Seattle area with a background that spans user interface development, immersive 3D design, and most recently, AI-integrated UX for enterprise tools.",
-      avatar: "/standing001.png"
+      avatar: import.meta.env.BASE_URL + 'standing001.png'
     },
     {
       title: "My Journey",
       content: "I began my career as a UI developer and quickly found myself drawn to the broader world of user experience. Over the years, I've had the opportunity to work across the UX spectrum, building test automation systems, designing 3D environments for IT security, and creating tools that empower users through intelligent systems.",
-      avatar: "/working001.png"
+      avatar: import.meta.env.BASE_URL + 'working001.png'
     },
     {
       title: "Current Focus",
-      content: "Today, I focus on AI innovation, agentic design, and storytelling through interaction. I'm deeply curious by nature and thrive on solving complex challenges for real users. Much of my work revolves around exploring how AI can accelerate human potential, simplify complexity, and enrich everyday workflows.",
-      avatar: "/marker001.png"
+      content: "Today, I focus on AI innovation and storytelling through interaction. I'm deeply curious by nature and thrive on solving complex challenges for real users. Much of my work revolves around exploring how AI can accelerate human potential, simplify complexity, and enrich everyday workflows.",
+      avatar: import.meta.env.BASE_URL + 'marker001.png'
     },
     {
       title: "Let's Connect",
       content: "I love prototyping, whether it's a browser extension, Figma plugin, or a full-stack app. I believe that building is the fastest path to learning. Collaboration is at the heart of my process, and I enjoy partnering with people from all disciplines.",
-      avatar: "/yay001.png",
+      avatar: import.meta.env.BASE_URL + 'yay001.png',
       showEmail: true
     }
   ];
@@ -149,7 +149,7 @@ const AboutPage: React.FC = () => {
             console.log('Video failed to load, showing fallback');
           }}
         >
-          <source src="/cafe.mp4" type="video/mp4" />
+          <source src={import.meta.env.BASE_URL + 'cafe.mp4'} type="video/mp4" />
         </video>
         {/* Fallback background if video fails */}
         <div className="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-200 flex items-center justify-center opacity-0 peer-[video]:opacity-100">
