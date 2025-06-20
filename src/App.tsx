@@ -148,7 +148,7 @@ function App() {
             >
               <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center">
                 <img 
-                  src="/avatar.png" 
+                  src={import.meta.env.BASE_URL + 'avatar.png'}
                   alt="Ed Miller Avatar" 
                   className="w-full h-full object-cover"
                   onError={(e) => {

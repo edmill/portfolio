@@ -343,13 +343,13 @@ const DataActivatorCaseStudy: React.FC<DataActivatorCaseStudyProps> = ({ onNavig
               <div 
                 className="relative group cursor-pointer"
                 onClick={() => openLightbox(
-                  '/sketchy.png', 
+                  import.meta.env.BASE_URL + 'sketchy.png', 
                   'Early design sketches and wireframes for Data Activator showing exploration of user interface concepts, data flow visualization, and interaction patterns for real-time analytics platform'
                 )}
               >
                 <div className="bg-white rounded-2xl border-2 border-gray-200 p-4 hover:border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl">
                   <img 
-                    src="/sketchy.png" 
+                    src={import.meta.env.BASE_URL + 'sketchy.png'} 
                     alt="Early design sketches and wireframes for Data Activator showing exploration of user interface concepts, data flow visualization, and interaction patterns for real-time analytics platform"
                     className="w-full h-auto rounded-xl border-2 border-vibe-purple/20 hover:border-vibe-purple/40 transition-all duration-300"
                   />
@@ -404,13 +404,13 @@ const DataActivatorCaseStudy: React.FC<DataActivatorCaseStudyProps> = ({ onNavig
               <div 
                 className="relative group cursor-pointer"
                 onClick={() => openLightbox(
-                  '/e2e.png', 
+                  import.meta.env.BASE_URL + 'e2e.png', 
                   'Data Activator End-to-End User Flow - Complete workflow diagram showing the 9-step process from viewing live event hub data through creating objects, defining properties, setting detection criteria, and configuring notifications'
                 )}
               >
                 <div className="bg-white rounded-2xl border-2 border-gray-200 p-4 hover:border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl">
                   <img 
-                    src="/e2e.png" 
+                    src={import.meta.env.BASE_URL + 'e2e.png'} 
                     alt="Data Activator End-to-End User Flow - Complete workflow diagram showing the 9-step process from viewing live event hub data through creating objects, defining properties, setting detection criteria, and configuring notifications"
                     className="w-full h-auto rounded-xl border-2 border-vibe-blue/20 hover:border-vibe-blue/40 transition-all duration-300"
                   />

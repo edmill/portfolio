@@ -370,13 +370,13 @@ const CopilotCaseStudy: React.FC<CopilotCaseStudyProps> = ({ onNavigate }) => {
               <div 
                 className="relative group cursor-pointer"
                 onClick={() => openLightbox(
-                  '/ssms.jpg', 
+                  import.meta.env.BASE_URL + 'ssms.jpg', 
                   'Microsoft Copilot integration in SQL Server Management Studio - showing AI-powered query assistance, contextual suggestions, and natural language to SQL conversion capabilities seamlessly integrated into the SSMS interface'
                 )}
               >
                 <div className="bg-white rounded-2xl border-2 border-gray-200 p-4 hover:border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl">
                   <img 
-                    src="/ssms.jpg" 
+                    src={import.meta.env.BASE_URL + 'ssms.jpg'} 
                     alt="Microsoft Copilot integration in SQL Server Management Studio - showing AI-powered query assistance, contextual suggestions, and natural language to SQL conversion capabilities seamlessly integrated into the SSMS interface"
                     className="w-full h-auto rounded-xl border-2 border-vibe-sienna/20 hover:border-vibe-sienna/40 transition-all duration-300"
                   />
