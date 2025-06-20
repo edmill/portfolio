@@ -102,60 +102,57 @@ const TimelineSection: React.FC = () => {
   ];
 
   return (
-    <section ref={ref} className="py-32 px-6 bg-gray-50">
+    <section ref={ref} className="py-16 px-3 sm:px-6 md:py-32 bg-gray-50">
       <div className="max-w-4xl mx-auto">
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-10 sm:mb-20"
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-vibe-gray">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-vibe-gray">
             <span className="bg-gradient-to-r from-vibe-sienna to-vibe-blue bg-clip-text text-transparent">
               Work History
             </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
             15+ years of progressive experience specializing in AI-powered design solutions and data visualization.
           </p>
         </motion.div>
-
         <div className="relative">
           {/* Timeline Line */}
-          <div className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-vibe-sienna via-vibe-blue to-vibe-purple rounded-full" />
-
+          <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-vibe-sienna via-vibe-blue to-vibe-purple rounded-full" />
           {experiences.map((exp, index) => (
             <motion.div
               key={`${exp.company}-${exp.year}`}
-              className="relative flex gap-8 mb-16 last:mb-0"
+              className="relative flex flex-col sm:flex-row gap-4 sm:gap-8 mb-12 sm:mb-16 last:mb-0"
               initial={{ opacity: 0, x: -50 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
               {/* Timeline Dot */}
-              <div className="relative flex-shrink-0">
-                <div className={`w-16 h-16 rounded-full ${getGradientClasses(exp.color)} flex items-center justify-center shadow-lg border-4 border-white`}>
-                  <Trophy className="w-8 h-8 text-white" />
+              <div className="relative flex-shrink-0 flex items-center justify-center mx-auto sm:mx-0">
+                <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full ${getGradientClasses(exp.color)} flex items-center justify-center shadow-lg border-4 border-white`}>
+                  <Trophy className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
               </div>
-
               {/* Content */}
-              <div className="flex-1 pb-8">
+              <div className="flex-1 pb-4 sm:pb-8">
                 <motion.div
-                  className="bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="bg-white rounded-2xl p-4 sm:p-8 border-2 border-gray-200 hover:border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.02 }}
                 >
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 sm:mb-4">
                     <div>
-                      <h3 className="text-2xl font-bold text-vibe-gray mb-2">
+                      <h3 className="text-xl sm:text-2xl font-bold text-vibe-gray mb-1 sm:mb-2">
                         {exp.role}
                       </h3>
-                      <h4 className={`text-xl font-semibold ${getTextColorClass(exp.color)}`}>
+                      <h4 className={`text-lg sm:text-xl font-semibold ${getTextColorClass(exp.color)}`}>
                         {exp.company}
                       </h4>
                     </div>
-                    <div className="mt-4 lg:mt-0 lg:text-right">
-                      <div className="flex items-center gap-2 text-gray-600 mb-2">
+                    <div className="mt-2 sm:mt-4 sm:mt-0 sm:text-right">
+                      <div className="flex items-center gap-2 text-gray-600 mb-1 sm:mb-2">
                         <Calendar className="w-4 h-4" />
                         {exp.year}
                       </div>
@@ -165,28 +162,27 @@ const TimelineSection: React.FC = () => {
                       </div>
                     </div>
                   </div>
-
                   {exp.showBullets ? (
-                    <ul className="space-y-3">
+                    <ul className="space-y-2 sm:space-y-3">
                       {exp.achievements.map((achievement, achievementIndex) => (
                         <motion.li
                           key={achievementIndex}
-                          className="flex items-start gap-3 text-gray-600"
+                          className="flex items-start gap-2 sm:gap-3 text-gray-600 text-sm sm:text-base"
                           initial={{ opacity: 0, x: -20 }}
                           animate={inView ? { opacity: 1, x: 0 } : {}}
                           transition={{ duration: 0.4, delay: index * 0.2 + achievementIndex * 0.1 }}
                         >
-                          <div className={`w-2 h-2 rounded-full ${getBgColorClass(exp.color)} flex-shrink-0 mt-2`} />
+                          <div className={`w-2 h-2 rounded-full ${getBgColorClass(exp.color)} flex-shrink-0 mt-1 sm:mt-2`} />
                           {achievement}
                         </motion.li>
                       ))}
                     </ul>
                   ) : (
-                    <div className="space-y-3">
+                    <div className="space-y-2 sm:space-y-3">
                       {exp.achievements.map((achievement, achievementIndex) => (
                         <motion.p
                           key={achievementIndex}
-                          className="text-gray-600 leading-relaxed"
+                          className="text-gray-600 text-sm sm:text-base leading-relaxed"
                           initial={{ opacity: 0, x: -20 }}
                           animate={inView ? { opacity: 1, x: 0 } : {}}
                           transition={{ duration: 0.4, delay: index * 0.2 + achievementIndex * 0.1 }}

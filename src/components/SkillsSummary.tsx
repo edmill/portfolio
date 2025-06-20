@@ -47,18 +47,18 @@ const SkillsSummary: React.FC<SkillsSummaryProps> = ({ onNavigate }) => {
   };
 
   return (
-    <section ref={ref} className="min-h-screen flex items-center justify-center px-6 pt-32 pb-20">
+    <section ref={ref} className="min-h-screen flex flex-col items-center justify-center px-4 pt-24 pb-12 sm:px-6 md:pt-32 md:pb-20">
       <div className="max-w-7xl mx-auto w-full">
         
         {/* Header */}
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
           <motion.h1 
-            className="text-5xl lg:text-7xl font-black mb-6 leading-tight"
+            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 sm:mb-6 leading-tight break-words"
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -69,7 +69,7 @@ const SkillsSummary: React.FC<SkillsSummaryProps> = ({ onNavigate }) => {
           </motion.h1>
           
           <motion.h2 
-            className="text-2xl lg:text-3xl font-semibold text-vibe-blue mb-8"
+            className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-vibe-blue mb-4 sm:mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}

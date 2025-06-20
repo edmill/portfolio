@@ -16,6 +16,7 @@ import DataActivatorCaseStudy from './components/DataActivatorCaseStudy';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home'); // 'home', 'about', 'copilot-case-study', 'data-activator-case-study'
+  const [navOpen, setNavOpen] = useState(false); // Responsive navigation state
 
   // Show Copilot Case Study Page
   if (currentPage === 'copilot-case-study') {
@@ -152,10 +153,9 @@ function App() {
                   alt="Ed Miller Avatar" 
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    // Fallback if avatar fails to load
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
-                    target.parentElement!.innerHTML = '<div class="w-8 h-8 bg-vibe-sienna rounded-lg flex items-center justify-center text-white font-bold">EM</div>';
+                    target.parentElement!.innerHTML = '<div class=\"w-8 h-8 bg-vibe-sienna rounded-lg flex items-center justify-center text-white font-bold\">EM</div>';
                   }}
                 />
               </div>
@@ -163,8 +163,19 @@ function App() {
                 AI Integration & Design Innovation
               </span>
             </motion.a>
+            {/* Hamburger for mobile */}
+            <button
+              className="sm:hidden flex flex-col gap-1.5 p-2 rounded focus:outline-none focus:ring-2 focus:ring-vibe-blue"
+              aria-label="Open navigation menu"
+              onClick={() => setNavOpen(!navOpen)}
+            >
+              <span className={`block w-6 h-0.5 bg-vibe-text transition-all duration-300 ${navOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
+              <span className={`block w-6 h-0.5 bg-vibe-text transition-all duration-300 ${navOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`block w-6 h-0.5 bg-vibe-text transition-all duration-300 ${navOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
+            </button>
+            {/* Desktop nav */}
             <motion.div 
-              className="flex gap-4 sm:gap-6 lg:gap-8"
+              className="hidden sm:flex gap-4 sm:gap-6 lg:gap-8"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
@@ -182,6 +193,22 @@ function App() {
               </button>
             </motion.div>
           </div>
+          {/* Mobile nav menu */}
+          {navOpen && (
+            <div className="sm:hidden bg-vibe-dark/95 backdrop-blur-md border-t border-white/10 px-6 py-6 flex flex-col gap-6 text-lg font-semibold">
+              <NavLink href="#hero" >Home</NavLink>
+              <NavLink href="#case-studies">Case Studies</NavLink>
+              <NavLink href="#impact">Impact</NavLink>
+              <NavLink href="#history">History</NavLink>
+              <NavLink href="#contact">Contact</NavLink>
+              <button
+                onClick={() => { setCurrentPage('about'); setNavOpen(false); }}
+                className="text-vibe-text-dim hover:text-vibe-text transition-colors duration-300 font-medium text-base text-left"
+              >
+                About
+              </button>
+            </div>
+          )}
         </motion.nav>
 
         {/* Main Content */}
