@@ -161,220 +161,207 @@ const AboutPage: React.FC = () => {
         <div className="absolute inset-0 bg-black/30" />
       </motion.div>
 
-      {/* Content Container */}
-      <div className="absolute inset-0 w-full h-full">
-        <div className="relative w-full h-full flex items-start justify-center pt-[140px]">
-          
-          {/* Text Panel - Carousel Design */}
-          <motion.div
-            className="absolute z-20"
-            style={{ 
-              y: textY,
-              height: 'clamp(500px, 65vh, 700px)',
-              top: '100px',
-              ...getTextPanelStyles()
-            }}
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-          >
-            {/* Carousel Container */}
-            <div className="bg-white/95 backdrop-blur-xl rounded-3xl h-full flex flex-col overflow-hidden shadow-2xl border-2 border-gray-200">
-              
-              {/* Carousel Header */}
-              <div className="p-6 border-b border-gray-200 flex-shrink-0">
-                <div className="flex items-center justify-between">
-                  <motion.h2 
-                    key={`title-${currentSlide}`}
-                    className="text-2xl font-bold text-vibe-gray text-left"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    {slides[currentSlide].title}
-                  </motion.h2>
-                  <div className="text-sm text-gray-500">
-                    {currentSlide + 1} / {slides.length}
-                  </div>
-                </div>
-              </div>
-
-              {/* Carousel Content */}
-              <div className="flex-1 relative overflow-hidden min-h-0">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`content-${currentSlide}`}
-                    className="absolute inset-0 p-6 flex flex-col justify-start h-full"
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -50 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <p className="text-base lg:text-lg text-gray-600 leading-relaxed font-normal text-left mb-6 flex-shrink-0">
-                      {slides[currentSlide].content}
-                    </p>
-                    
-                    {/* Email Section - Only show on last slide */}
-                    {slides[currentSlide].showEmail && (
-                      <motion.div
-                        className="mt-auto flex-shrink-0"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                      >
-                        <div className="bg-gray-100 rounded-2xl p-4 border-2 border-gray-200">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-vibe-blue to-vibe-purple rounded-full flex items-center justify-center flex-shrink-0">
-                              <Mail className="w-5 h-5 text-white" />
-                            </div>
-                            <div className="min-w-0">
-                              <p className="text-sm text-gray-600 mb-1">Get in touch</p>
-                              <a 
-                                href="mailto:edmill@outlook.com"
-                                className="text-vibe-gray font-medium hover:text-vibe-blue transition-colors duration-300 text-lg break-all"
-                              >
-                                edmill@outlook.com
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Carousel Controls */}
-              <div className="p-6 border-t border-gray-200 flex-shrink-0">
-                <div className="flex items-center justify-between">
-                  {/* Dot Indicators */}
-                  <div className="flex gap-2">
-                    {slides.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => goToSlide(index)}
-                        aria-label={`Go to slide ${index + 1}`}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-vibe-blue/50 ${
-                          index === currentSlide 
-                            ? 'bg-vibe-blue scale-125' 
-                            : 'bg-gray-300 hover:bg-gray-400'
-                        }`}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Auto-advance toggle */}
-                  <button
-                    onClick={toggleAutoAdvance}
-                    className="flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-vibe-blue/50"
-                  >
-                    {isAutoAdvancing ? (
-                      <Pause className="w-3 h-3 text-gray-600" />
-                    ) : (
-                      <Play className="w-3 h-3 text-gray-600" />
-                    )}
-                    <span className="text-xs text-gray-600">
-                      {isAutoAdvancing ? 'Pause' : 'Play'}
-                    </span>
-                  </button>
-
-                  {/* Navigation Buttons */}
-                  <div className="flex gap-2">
-                    <button
-                      onClick={prevSlide}
-                      className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-vibe-blue/50"
-                    >
-                      <ChevronLeft className="w-5 h-5 text-gray-600" />
-                    </button>
-                    <button
-                      onClick={nextSlide}
-                      className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-vibe-blue/50"
-                    >
-                      <ChevronRight className="w-5 h-5 text-gray-600" />
-                    </button>
-                  </div>
+      {/* Content Container - Responsive Flex Layout */}
+      <div className="absolute inset-0 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center pt-[80px] md:pt-[140px] px-2 sm:px-4">
+        {/* Text Panel - Carousel Design */}
+        <motion.div
+          className="relative z-20 w-full md:w-auto"
+          style={{ 
+            y: textY,
+            height: 'auto',
+            maxWidth: '100%',
+            ...((windowWidth < 768) ? { width: '100%', right: '0', top: '0' } : { height: 'clamp(500px, 65vh, 700px)', top: '100px', ...getTextPanelStyles() })
+          }}
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.3 }}
+        >
+          {/* Carousel Container */}
+          <div className="bg-white/95 backdrop-blur-xl rounded-2xl md:rounded-3xl flex flex-col overflow-hidden shadow-2xl border-2 border-gray-200 w-full max-w-xl mx-auto">
+            {/* Carousel Header */}
+            <div className="p-4 md:p-6 border-b border-gray-200 flex-shrink-0">
+              <div className="flex items-center justify-between">
+                <motion.h2 
+                  key={`title-${currentSlide}`}
+                  className="text-lg md:text-2xl font-bold text-vibe-gray text-left"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {slides[currentSlide].title}
+                </motion.h2>
+                <div className="text-xs md:text-sm text-gray-500">
+                  {currentSlide + 1} / {slides.length}
                 </div>
               </div>
             </div>
-          </motion.div>
-
-          {/* Character Container */}
-          {showCharacter && (
-            <motion.div
-              className="absolute z-30"
-              style={{ 
-                y: characterY,
-                filter: 'drop-shadow(0px 30px 60px rgba(0, 0, 0, 0.7)) drop-shadow(0px 15px 30px rgba(0, 0, 0, 0.5)) drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.4))',
-                ...getCharacterStyles(),
-                top: '50px',
-                height: 'calc(100vh - 100px)',
-                transform: 'translateZ(0)',
-                overflow: 'visible'
-              }}
-              initial={{ opacity: 0, x: -100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 1, delay: 0.2 }}
-            >
+            {/* Carousel Content */}
+            <div className="flex-1 relative overflow-hidden min-h-0">
               <AnimatePresence mode="wait">
-                <motion.img
-                  key={`avatar-${currentSlide}`}
-                  src={slides[currentSlide].avatar}
-                  alt={`Ed Miller - ${slides[currentSlide].title}`}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    objectPosition: 'center bottom',
-                    filter: 'brightness(0.95) contrast(1.05)',
-                    display: 'block'
-                  }}
-                  onError={(e) => {
-                    // Fallback if image fails to load - hide the image gracefully
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    console.log(`Failed to load image: ${target.src}`);
-                    
-                    // Create a fallback placeholder
-                    const placeholder = document.createElement('div');
-                    placeholder.className = 'w-full h-full flex items-center justify-center text-gray-400';
-                    placeholder.innerHTML = `
-                      <div class="text-center">
-                        <div class="text-6xl mb-4">👤</div>
-                        <p class="text-lg">Character Image</p>
+                <motion.div
+                  key={`content-${currentSlide}`}
+                  className="absolute inset-0 p-4 md:p-6 flex flex-col justify-start h-full"
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <p className="text-base md:text-lg text-gray-600 leading-relaxed font-normal text-left mb-4 md:mb-6 flex-shrink-0">
+                    {slides[currentSlide].content}
+                  </p>
+                  {/* Email Section - Only show on last slide */}
+                  {slides[currentSlide].showEmail && (
+                    <motion.div
+                      className="mt-auto flex-shrink-0"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.3 }}
+                    >
+                      <div className="bg-gray-100 rounded-2xl p-4 border-2 border-gray-200">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-vibe-blue to-vibe-purple rounded-full flex items-center justify-center flex-shrink-0">
+                            <Mail className="w-5 h-5 text-white" />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-xs md:text-sm text-gray-600 mb-1">Get in touch</p>
+                            <a 
+                              href="mailto:edmill@outlook.com"
+                              className="text-vibe-gray font-medium hover:text-vibe-blue transition-colors duration-300 text-base md:text-lg break-all"
+                            >
+                              edmill@outlook.com
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                    `;
-                    target.parentElement?.appendChild(placeholder);
-                  }}
-                  onLoad={() => {
-                    console.log(`Successfully loaded: ${slides[currentSlide].avatar}`);
-                  }}
-                  initial={{ 
-                    opacity: 0, 
-                    scale: 0.9,
-                    rotateY: -15 
-                  }}
-                  animate={{ 
-                    opacity: 1, 
-                    scale: 1,
-                    rotateY: 0 
-                  }}
-                  exit={{ 
-                    opacity: 0, 
-                    scale: 0.9,
-                    rotateY: 15 
-                  }}
-                  transition={{ 
-                    duration: 0.8,
-                    ease: "easeInOut",
-                    scale: { duration: 0.6 },
-                    rotateY: { duration: 0.8 }
-                  }}
-                />
+                    </motion.div>
+                  )}
+                </motion.div>
               </AnimatePresence>
-            </motion.div>
-          )}
-        </div>
+            </div>
+            {/* Carousel Controls */}
+            <div className="p-4 md:p-6 border-t border-gray-200 flex-shrink-0">
+              <div className="flex flex-col xs:flex-row items-center justify-between gap-3 md:gap-0">
+                {/* Dot Indicators */}
+                <div className="flex gap-2 mb-2 xs:mb-0">
+                  {slides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToSlide(index)}
+                      aria-label={`Go to slide ${index + 1}`}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-vibe-blue/50 ${
+                        index === currentSlide 
+                          ? 'bg-vibe-blue scale-125' 
+                          : 'bg-gray-300 hover:bg-gray-400'
+                      }`}
+                    />
+                  ))}
+                </div>
+                {/* Auto-advance toggle */}
+                <button
+                  onClick={toggleAutoAdvance}
+                  className="flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-vibe-blue/50 text-xs md:text-sm"
+                >
+                  {isAutoAdvancing ? (
+                    <Pause className="w-3 h-3 text-gray-600" />
+                  ) : (
+                    <Play className="w-3 h-3 text-gray-600" />
+                  )}
+                  <span className="text-xs text-gray-600">
+                    {isAutoAdvancing ? 'Pause' : 'Play'}
+                  </span>
+                </button>
+                {/* Navigation Buttons */}
+                <div className="flex gap-2">
+                  <button
+                    onClick={prevSlide}
+                    className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-vibe-blue/50"
+                  >
+                    <ChevronLeft className="w-5 h-5 text-gray-600" />
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-vibe-blue/50"
+                  >
+                    <ChevronRight className="w-5 h-5 text-gray-600" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+        {/* Character Container - Hide on mobile, show below on small screens if space allows */}
+        {showCharacter && windowWidth >= 768 && (
+          <motion.div
+            className="relative z-30 hidden md:block"
+            style={{ 
+              y: characterY,
+              filter: 'drop-shadow(0px 30px 60px rgba(0, 0, 0, 0.7)) drop-shadow(0px 15px 30px rgba(0, 0, 0, 0.5)) drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.4))',
+              ...getCharacterStyles(),
+              top: '50px',
+              height: 'calc(100vh - 100px)',
+              transform: 'translateZ(0)',
+              overflow: 'visible'
+            }}
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -100 }}
+            transition={{ duration: 1, delay: 0.2 }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={`avatar-${currentSlide}`}
+                src={slides[currentSlide].avatar}
+                alt={`Ed Miller - ${slides[currentSlide].title}`}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  objectPosition: 'center bottom',
+                  filter: 'brightness(0.95) contrast(1.05)',
+                  display: 'block'
+                }}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  console.log(`Failed to load image: ${target.src}`);
+                  const placeholder = document.createElement('div');
+                  placeholder.className = 'w-full h-full flex items-center justify-center text-gray-400';
+                  placeholder.innerHTML = `
+                    <div class="text-center">
+                      <div class="text-6xl mb-4">👤</div>
+                      <p class="text-lg">Character Image</p>
+                    </div>
+                  `;
+                  target.parentElement?.appendChild(placeholder);
+                }}
+                onLoad={() => {
+                  console.log(`Successfully loaded: ${slides[currentSlide].avatar}`);
+                }}
+                initial={{ 
+                  opacity: 0, 
+                  scale: 0.9,
+                  rotateY: -15 
+                }}
+                animate={{ 
+                  opacity: 1, 
+                  scale: 1,
+                  rotateY: 0 
+                }}
+                exit={{ 
+                  opacity: 0, 
+                  scale: 0.9,
+                  rotateY: 15 
+                }}
+                transition={{ 
+                  duration: 0.8,
+                  ease: "easeInOut",
+                  scale: { duration: 0.6 },
+                  rotateY: { duration: 0.8 }
+                }}
+              />
+            </AnimatePresence>
+          </motion.div>
+        )}
       </div>
     </div>
   );
