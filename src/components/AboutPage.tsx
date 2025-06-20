@@ -3,7 +3,6 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Play, Pause, Mail } from 'lucide-react';
 
 const AboutPage: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [showCharacter, setShowCharacter] = useState(true);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1920);
@@ -254,6 +253,7 @@ const AboutPage: React.FC = () => {
                       <button
                         key={index}
                         onClick={() => goToSlide(index)}
+                        aria-label={`Go to slide ${index + 1}`}
                         className={`w-2 h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-vibe-blue/50 ${
                           index === currentSlide 
                             ? 'bg-vibe-blue scale-125' 
