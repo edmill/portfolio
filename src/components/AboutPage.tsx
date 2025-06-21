@@ -83,24 +83,27 @@ const AboutPage: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Update getCharacterStyles to allow larger scaling at high widths
   const getCharacterStyles = () => {
-    const textPanelWidth = Math.min(Math.max(450, windowWidth * 0.38), 550);
-    const rightMargin = 120;
+    const textPanelWidth = Math.min(Math.max(450, windowWidth * 0.38), windowWidth >= 1920 ? 600 : 550);
+    const rightMargin = windowWidth >= 1920 ? 200 : 120;
     const leftEdge = 60;
     const availableCharacterSpace = windowWidth - textPanelWidth - rightMargin - leftEdge;
-    
-    const characterWidth = Math.min(Math.max(280, availableCharacterSpace * 0.8), 420);
+    // Allow character to scale up more at 1920+
+    const characterWidth = windowWidth >= 1920
+      ? Math.min(Math.max(420, availableCharacterSpace * 0.9), 600)
+      : Math.min(Math.max(280, availableCharacterSpace * 0.8), 420);
     const characterLeft = leftEdge + (availableCharacterSpace - characterWidth) / 2;
-    
     return {
       left: `${characterLeft}px`,
       width: `${characterWidth}px`,
     };
   };
 
+  // Update getTextPanelStyles to move carousel further right at 1920+
   const getTextPanelStyles = () => {
-    const textPanelWidth = Math.min(Math.max(450, windowWidth * 0.38), 550);
-    const rightMargin = 120;
+    const textPanelWidth = Math.min(Math.max(450, windowWidth * 0.38), windowWidth >= 1920 ? 600 : 550);
+    const rightMargin = windowWidth >= 1920 ? 200 : 120;
     
     return {
       width: `${textPanelWidth}px`,
@@ -137,53 +140,55 @@ const AboutPage: React.FC = () => {
         className="absolute inset-0 w-full h-full"
         style={{ y: backgroundY }}
       >
-        <video
-          ref={videoRef}
-          className="w-full h-full object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          onError={() => {
-            console.log('Video failed to load, showing fallback');
-          }}
-        >
-          <source src={import.meta.env.BASE_URL + 'cafe-ani.mp4'} type="video/mp4" />
-        </video>
-        {/* Fallback background if video fails */}
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-200 flex items-center justify-center opacity-0 peer-[video]:opacity-100">
-          <div className="text-center text-gray-600">
-            <div className="text-6xl mb-4">☕</div>
-            <p>Coffee Shop Background</p>
+        <div className="relative w-full h-full">
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover object-center"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            onError={() => {
+              console.log('Video failed to load, showing fallback');
+            }}
+          >
+            <source src={import.meta.env.BASE_URL + 'cafe-ani.mp4'} type="video/mp4" />
+          </video>
+          {/* Fallback background if video fails */}
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-200 flex items-center justify-center opacity-0 peer-[video]:opacity-100">
+            <div className="text-center text-gray-600">
+              <div className="text-6xl mb-4">☕</div>
+              <p>Coffee Shop Background</p>
+            </div>
           </div>
+          <div className="absolute inset-0 bg-black/30" />
         </div>
-        <div className="absolute inset-0 bg-black/30" />
       </motion.div>
 
       {/* Content Container - Responsive Flex Layout */}
-      <div className="absolute inset-0 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center pt-[80px] md:pt-[140px] px-2 sm:px-4">
+      <div className="absolute inset-0 w-full h-full flex flex-col lg:flex-row items-center justify-start lg:justify-center pt-[100px] md:pt-[60px] px-1 sm:px-2">
         {/* Text Panel - Carousel Design */}
         <motion.div
-          className="relative z-20 w-full md:w-auto"
+          className="relative z-20 w-full lg:w-1/2 xl:w-[480px] max-w-xl"
           style={{ 
             y: textY,
             height: 'auto',
             maxWidth: '100%',
-            ...((windowWidth < 768) ? { width: '100%', right: '0', top: '0' } : { height: 'clamp(500px, 65vh, 700px)', top: '100px', ...getTextPanelStyles() })
+            marginTop: windowWidth < 1024 ? '0.5rem' : '0',
+            ...((windowWidth < 1024) ? { width: '100%', right: '0', top: '0' } : { height: 'clamp(420px, 60vh, 600px)', top: '0', ...getTextPanelStyles() })
           }}
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
         >
-          {/* Carousel Container */}
-          <div className="bg-white/95 backdrop-blur-xl rounded-2xl md:rounded-3xl flex flex-col overflow-hidden shadow-2xl border-2 border-gray-200 w-full max-w-xl mx-auto">
+          <div className="bg-white/95 backdrop-blur-xl rounded-xl md:rounded-3xl flex flex-col overflow-hidden shadow-xl border border-gray-200 w-full max-w-md mx-auto p-2 md:p-0">
             {/* Carousel Header */}
-            <div className="p-4 md:p-6 border-b border-gray-200 flex-shrink-0">
+            <div className="p-3 md:p-6 border-b border-gray-200 flex-shrink-0">
               <div className="flex items-center justify-between">
                 <motion.h2 
                   key={`title-${currentSlide}`}
-                  className="text-lg md:text-2xl font-bold text-vibe-gray text-left"
+                  className="text-base md:text-2xl font-bold text-vibe-gray text-left"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
@@ -200,13 +205,13 @@ const AboutPage: React.FC = () => {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`content-${currentSlide}`}
-                  className="relative p-4 md:p-6 flex flex-col justify-start h-full"
+                  className="relative p-3 md:p-6 flex flex-col justify-start h-full"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -50 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <p className="text-base md:text-lg text-gray-600 leading-relaxed font-normal text-left mb-4 md:mb-6 flex-shrink-0">
+                  <p className="text-base md:text-lg text-gray-600 leading-relaxed font-normal text-left mb-3 md:mb-6 flex-shrink-0">
                     {slides[currentSlide].content}
                   </p>
                   {/* Email Section - Only show on last slide */}
@@ -217,7 +222,7 @@ const AboutPage: React.FC = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.3 }}
                     >
-                      <div className="bg-gray-100 rounded-2xl p-4 border-2 border-gray-200">
+                      <div className="bg-gray-100 rounded-2xl p-4 border border-gray-200">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 bg-gradient-to-br from-vibe-blue to-vibe-purple rounded-full flex items-center justify-center flex-shrink-0">
                             <Mail className="w-5 h-5 text-white" />
@@ -239,8 +244,8 @@ const AboutPage: React.FC = () => {
               </AnimatePresence>
             </div>
             {/* Carousel Controls */}
-            <div className="p-4 md:p-6 border-t border-gray-200 flex-shrink-0">
-              <div className="flex flex-col xs:flex-row items-center justify-between gap-3 md:gap-0">
+            <div className="p-3 md:p-6 border-t border-gray-200 flex-shrink-0">
+              <div className="flex flex-col xs:flex-row items-center justify-between gap-2 md:gap-0">
                 {/* Dot Indicators */}
                 <div className="flex gap-2 mb-2 xs:mb-0">
                   {slides.map((_, index) => (
@@ -289,22 +294,41 @@ const AboutPage: React.FC = () => {
             </div>
           </div>
         </motion.div>
-        {/* Character Container - Hide on mobile, show below on small screens if space allows */}
-        {showCharacter && windowWidth >= 768 && (
+        {/* Character Container - Always show below carousel on mobile, side-by-side on lg+ */}
+        {showCharacter && (
           <motion.div
-            className="relative z-30 hidden md:block"
-            style={{ 
+            className={`relative z-30 ${windowWidth < 1024 ? 'block mt-2 w-1/2 max-w-[140px] mx-auto' : 'block lg:ml-12 lg:w-1/2 xl:w-[320px] max-w-xs'}`}
+            style={windowWidth < 1024 ? {
+              y: 0,
+              width: '100%',
+              height: 'auto',
+              maxWidth: '140px',
+              margin: '0 auto',
+              filter: 'drop-shadow(0px 6px 18px rgba(0,0,0,0.18))',
+              background: 'none', // Remove background
+              borderRadius: '0', // Remove border radius
+              padding: '0', // Remove padding
+              boxSizing: 'border-box',
+              marginLeft: '50px',
+              marginRight: '50px',
+            } : {
               y: characterY,
               filter: 'drop-shadow(0px 30px 60px rgba(0, 0, 0, 0.7)) drop-shadow(0px 15px 30px rgba(0, 0, 0, 0.5)) drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.4))',
               ...getCharacterStyles(),
-              top: '50px',
-              height: 'calc(100vh - 100px)',
+              top: '0',
+              height: 'clamp(320px, 60vh, 600px)',
               transform: 'translateZ(0)',
-              overflow: 'visible'
+              overflow: 'visible',
+              marginLeft: '50px', // 50px left margin
+              marginRight: '50px', // 50px right margin
+              background: 'none', // Remove background
+              borderRadius: '0', // Remove border radius
+              padding: '0', // Remove padding
+              boxSizing: 'border-box',
             }}
-            initial={{ opacity: 0, x: -100 }}
+            initial={{ opacity: 0, x: windowWidth < 1024 ? 0 : -100 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
+            exit={{ opacity: 0, x: windowWidth < 1024 ? 0 : -100 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
             <AnimatePresence mode="wait">
@@ -312,13 +336,24 @@ const AboutPage: React.FC = () => {
                 key={`avatar-${currentSlide}`}
                 src={slides[currentSlide].avatar}
                 alt={`Ed Miller - ${slides[currentSlide].title}`}
-                style={{
+                style={windowWidth < 1024 ? {
+                  width: '100%',
+                  height: 'auto',
+                  objectFit: 'contain',
+                  objectPosition: 'center bottom',
+                  filter: 'brightness(0.97) contrast(1.05)',
+                  display: 'block',
+                  borderRadius: '0', // Remove border radius
+                  background: 'none', // Remove background
+                } : {
                   width: '100%',
                   height: '100%',
                   objectFit: 'contain',
                   objectPosition: 'center bottom',
                   filter: 'brightness(0.95) contrast(1.05)',
-                  display: 'block'
+                  display: 'block',
+                  borderRadius: '0', // Remove border radius
+                  background: 'none', // Remove background
                 }}
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
