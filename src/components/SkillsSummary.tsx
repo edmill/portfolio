@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { Brain, Database, ArrowRight, CheckCircle } from 'lucide-react';
 
 interface SkillsSummaryProps {
@@ -8,11 +7,6 @@ interface SkillsSummaryProps {
 }
 
 const SkillsSummary: React.FC<SkillsSummaryProps> = ({ onNavigate }) => {
-  const { ref, inView } = useInView({
-    threshold: 0.2,
-    triggerOnce: true
-  });
-
   const coreCompetencies = [
     {
       category: "AI Integration and Prototyping",
@@ -47,161 +41,82 @@ const SkillsSummary: React.FC<SkillsSummaryProps> = ({ onNavigate }) => {
   };
 
   return (
-    <section ref={ref} className="min-h-screen flex flex-col items-center justify-center px-4 pt-24 pb-12 sm:px-6 md:pt-32 md:pb-20">
-      <div className="max-w-7xl mx-auto w-full">
-        
-        {/* Header */}
-        <motion.div 
-          className="text-center mb-10 sm:mb-16"
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.h1 
-            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 sm:mb-6 leading-tight break-words"
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <span className="bg-gradient-to-r from-vibe-sienna via-vibe-blue to-vibe-purple bg-clip-text text-transparent">
-              Ed Miller
-            </span>
-          </motion.h1>
-          
-          <motion.h2 
-            className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-vibe-blue mb-4 sm:mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            Principal Product Designer
-          </motion.h2>
-
-          {/* Improved text layout with better contrast */}
-          <motion.div 
-            className="max-w-5xl mx-auto text-lg lg:text-xl text-vibe-text leading-relaxed space-y-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <p className="max-w-4xl mx-auto">
-              Data-driven Principal Product Designer with 15+ years of progressive experience at Microsoft, 
-              specializing in AI-powered user experiences, data visualization, and growth-oriented design solutions.
-            </p>
-            <p className="max-w-4xl mx-auto">
-              Proven expertise in leveraging data insights to create innovative experiences across Microsoft 365 
-              ecosystem, with deep experience in Generative AI, Large Language Models (LLM), and machine learning 
-              integration. Adept at collaborating with cross-functional teams including Data Science, AI/ML, 
-              Product Management, Engineering, and Research teams to deliver exceptional solutions that drive user 
-              engagement, satisfaction, and business growth through data-informed design decisions and rapid 
-              prototyping experience.
-            </p>
-          </motion.div>
-        </motion.div>
-
-        {/* Case Study Buttons - Improved accessibility */}
-        <motion.div
-          className="mb-16"
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <motion.button
-              onClick={() => handleNavigate('copilot-case-study')}
-              className="group flex items-center gap-4 px-8 py-6 bg-vibe-sienna text-white rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 min-w-[280px] focus:outline-none focus:ring-4 focus:ring-vibe-sienna/50"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="View Microsoft Copilot AI Integration Case Study"
+    <section>
+      {/* Full-width, full-height hero section */}
+      <div className="h-10 w-full" />
+      <div className="w-full h-[calc(100vh-40px)] flex flex-col md:flex-row items-stretch m-0 p-0 overflow-hidden relative" style={{ background: 'linear-gradient(90deg, #232323 60%, #2d2d2d 100%)' }}>
+        {/* Overlay for opacity */}
+        <div className="absolute inset-0 bg-black/40 pointer-events-none z-0" />
+        {/* Left: Full-height profile image */}
+        <div
+          className="hidden md:block md:w-5/12 h-full z-10 bg-cover bg-left-top min-w-0"
+          style={{ backgroundImage: "url('profile.jpg')" }}
+        />
+        {/* Right: Greeting and content */}
+        <div className="w-full md:w-7/12 flex flex-col justify-center items-stretch px-8 py-16 md:py-0 md:pr-32 md:pl-16 gap-6 z-10 min-w-0">
+          <h3 className="text-lg md:text-xl text-white/70 mb-2">Experience Designer — Seattle, WA</h3>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-2 w-full">
+            <motion.span
+              style={{ display: 'inline-block', originX: 0.7, originY: 0.7 }}
+              initial={{ rotate: 0 }}
+              animate={{ rotate: [0, 20, -10, 20, -5, 0] }}
+              transition={{ duration: 1.2, ease: 'easeInOut' }}
+              aria-label="waving hand"
+              role="img"
             >
-              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                <Brain className="w-6 h-6" />
-              </div>
-              <div className="text-left">
-                <div className="font-bold">Microsoft Copilot</div>
-                <div className="text-sm opacity-90">AI Integration Case Study</div>
-              </div>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
-
-            <motion.button
-              onClick={() => handleNavigate('data-activator-case-study')}
-              className="group flex items-center gap-4 px-8 py-6 bg-vibe-blue text-white rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 min-w-[280px] focus:outline-none focus:ring-4 focus:ring-vibe-blue/50"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="View Data Activator 0-1 Product Case Study"
+              👋
+            </motion.span>{' '}
+            Hi, I’m Ed Miller
+          </h1>
+          <p className="text-base md:text-lg text-white/80 leading-relaxed mb-4">
+            A data-driven Experience Designer with 15+ years of progressive experience at Microsoft, specializing in AI-powered user experiences, prototyping, and innovative design solutions.
+          </p>
+          <p className="text-base md:text-lg text-white/70 leading-relaxed mb-6">
+            With a background spanning user interface development, immersive 3D design, and AI-integrated UX for enterprise tools. My focus is on AI innovation, storytelling through interaction, and solving complex challenges for real users. I'm a huge believer in building as a path to learning and thrive on collaboration across disciplines.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button
+              className="px-8 py-4 bg-white text-primary-accent font-bold rounded-full shadow-md hover:bg-gray-100 transition-colors duration-150 text-lg"
+              onClick={() => {
+                const element = document.getElementById('projects');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              aria-label="Explore my work and projects"
             >
-              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                <Database className="w-6 h-6" />
-              </div>
-              <div className="text-left">
-                <div className="font-bold">Data Activator</div>
-                <div className="text-sm opacity-90">0-1 Product Case Study</div>
-              </div>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
+              Explore some projects
+            </button>
+            <a
+              href="mailto:edmill@outlook.com"
+              className="px-8 py-4 bg-primary-accent text-white font-bold rounded-full shadow-md hover:bg-primary transition-colors duration-150 text-lg flex items-center justify-center"
+              aria-label="Send email to Ed Miller"
+            >
+              Get in touch
+            </a>
           </div>
-        </motion.div>
-
-        {/* Core Competencies - Better formatted with category/details structure */}
-        <motion.div
-          className="mb-16"
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1.0 }}
-        >
-          <h3 className="text-2xl font-bold text-center mb-12 text-vibe-text">
-            Core Competencies
-          </h3>
-          
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {coreCompetencies.map((competency, index) => (
-                <motion.div
-                  key={competency.category}
-                  className="flex items-start gap-4 p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-all duration-300"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
-                >
-                  <CheckCircle className="w-6 h-6 text-vibe-sienna mt-0.5 flex-shrink-0" />
-                  <div className="flex-1">
-                    <h4 className="text-vibe-text font-semibold text-lg mb-1">
-                      {competency.category}
-                    </h4>
-                    <p className="text-vibe-text-dim text-sm leading-relaxed">
-                      {competency.details}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Call to Action - Improved accessibility */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 1.8 }}
-        >
-          <motion.button
-            className="px-12 py-6 bg-gradient-to-r from-vibe-blue to-vibe-purple rounded-full font-bold text-xl text-white shadow-2xl hover:shadow-3xl transform transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-vibe-blue/50"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              const element = document.getElementById('case-studies');
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
-            aria-label="Explore my work and case studies"
-          >
-            Explore My Work
-          </motion.button>
-        </motion.div>
+        </div>
       </div>
+      {/* Case Study Buttons */}
+      {/* Removed case study buttons as requested */}
+      {/* Core Competencies */}
+      {/*
+      <div className="mb-16">
+        <h3 className="text-2xl font-bold text-center mb-8 text-white">Core Competencies</h3>
+        <div className="overflow-x-auto">
+          <table className="mx-auto min-w-[500px] max-w-3xl w-full text-left text-white/90 text-lg">
+            <tbody>
+              {coreCompetencies.map((competency) => (
+                <tr key={competency.category} className="align-top">
+                  <td className="pr-8 py-2 font-semibold text-white whitespace-nowrap">{competency.category}</td>
+                  <td className="py-2 text-white/80 text-base">{competency.details}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      */}
     </section>
   );
 };

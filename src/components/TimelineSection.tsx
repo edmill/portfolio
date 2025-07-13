@@ -21,7 +21,7 @@ const TimelineSection: React.FC = () => {
         "Designed comprehensive Data Activator creation experience for real-time data processing and analytics",
         "Applied growth-oriented design thinking to complex technical workflows, using data insights to drive design decisions and measure impact on user adoption and satisfaction"
       ],
-      color: "sienna",
+      color: "primary-accent",
       showBullets: true
     },
     {
@@ -35,7 +35,7 @@ const TimelineSection: React.FC = () => {
         "Designed 'Discover, Try and Buy' experience for Viva Workplace Analytics, leveraging user behavior data to optimize conversion funnel and achieve 25% increase in enterprise adoption",
         "Created comprehensive data visualization solutions for workplace intelligence, enabling organizations to make better decisions through intuitive presentation of complex employee engagement and productivity data"
       ],
-      color: "blue",
+      color: "indigo-800",
       showBullets: true
     },
     {
@@ -49,7 +49,7 @@ const TimelineSection: React.FC = () => {
         "Established design system cohesion using Fluent Design Language across Microsoft Information Architecture solutions",
         "Applied design consistency metrics and user experience scores to inform design decisions"
       ],
-      color: "purple",
+      color: "primary",
       showBullets: true
     },
     {
@@ -63,7 +63,7 @@ const TimelineSection: React.FC = () => {
         "Created detailed wireframes and polished design prototypes for complex data scenarios, showcased to executive leadership with solutions validated through user research and usage metrics",
         "Received 3 consecutive Microsoft 'Delight the Customer' awards for innovative data driven user experience design that directly improved customer satisfaction scores"
       ],
-      color: "sienna",
+      color: "primary-accent",
       showBullets: true
     },
     {
@@ -74,7 +74,7 @@ const TimelineSection: React.FC = () => {
       achievements: [
         "MSIT - Microsoft Volume Licensing platform. Developed interactive prototypes for next generation licensing platform."
       ],
-      color: "blue",
+      color: "indigo-800",
       showBullets: false
     },
     {
@@ -85,7 +85,7 @@ const TimelineSection: React.FC = () => {
       achievements: [
         "Led user experience design for healthcare pharmacy management software solutions, designing intuitive interfaces for complex pharmaceutical workflow management systems."
       ],
-      color: "purple",
+      color: "primary-accent",
       showBullets: false
     },
     {
@@ -96,7 +96,7 @@ const TimelineSection: React.FC = () => {
       achievements: [
         "Led test automation and quality assurance for Microsoft enterprise software solutions, developing comprehensive testing frameworks and ensuring product reliability across multiple release cycles."
       ],
-      color: "sienna",
+      color: "primary-accent",
       showBullets: false
     }
   ];
@@ -110,8 +110,8 @@ const TimelineSection: React.FC = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-vibe-gray">
-            <span className="bg-gradient-to-r from-vibe-sienna to-vibe-blue bg-clip-text text-transparent">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-primary">
+            <span className="bg-gradient-to-r from-primary-accent to-indigo-800 bg-clip-text text-transparent">
               Work History
             </span>
           </h2>
@@ -121,7 +121,7 @@ const TimelineSection: React.FC = () => {
         </motion.div>
         <div className="relative">
           {/* Timeline Line */}
-          <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-vibe-sienna via-vibe-blue to-vibe-purple rounded-full" />
+          <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-primary-accent via-indigo-800 to-primary rounded-full" />
           {experiences.map((exp, index) => (
             <motion.div
               key={`${exp.company}-${exp.year}`}
@@ -144,7 +144,7 @@ const TimelineSection: React.FC = () => {
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 sm:mb-4">
                     <div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-vibe-gray mb-1 sm:mb-2">
+                      <h3 className="text-xl sm:text-2xl font-bold text-primary mb-1 sm:mb-2">
                         {exp.role}
                       </h3>
                       <h4 className={`text-lg sm:text-xl font-semibold ${getTextColorClass(exp.color)}`}>
@@ -204,40 +204,40 @@ const TimelineSection: React.FC = () => {
 
 function getGradientClasses(color: string): string {
   switch (color) {
-    case 'sienna':
-      return 'bg-vibe-sienna';
-    case 'blue':
-      return 'bg-vibe-blue';
-    case 'purple':
-      return 'bg-vibe-purple';
+    case 'primary-accent':
+      return 'bg-gradient-to-br from-primary-accent to-primary';
+    case 'indigo-800':
+      return 'bg-gradient-to-br from-indigo-800 to-primary-accent';
+    case 'primary':
+      return 'bg-gradient-to-br from-primary to-indigo-800';
     default:
-      return 'bg-vibe-sienna';
+      return 'bg-gradient-to-br from-primary-accent to-primary';
   }
 }
 
 function getTextColorClass(color: string): string {
   switch (color) {
-    case 'sienna':
-      return 'text-vibe-sienna';
-    case 'blue':
-      return 'text-vibe-blue';
-    case 'purple':
-      return 'text-vibe-purple';
+    case 'primary-accent':
+      return 'text-primary-accent';
+    case 'indigo-800':
+      return 'text-indigo-800';
+    case 'primary':
+      return 'text-primary';
     default:
-      return 'text-vibe-sienna';
+      return 'text-primary-accent';
   }
 }
 
 function getBgColorClass(color: string): string {
   switch (color) {
-    case 'sienna':
-      return 'bg-vibe-sienna';
-    case 'blue':
-      return 'bg-vibe-blue';
-    case 'purple':
-      return 'bg-vibe-purple';
+    case 'primary-accent':
+      return 'bg-primary-accent';
+    case 'indigo-800':
+      return 'bg-indigo-800';
+    case 'primary':
+      return 'bg-primary';
     default:
-      return 'bg-vibe-sienna';
+      return 'bg-primary-accent';
   }
 }
 

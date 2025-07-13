@@ -7,10 +7,8 @@ import TimelineSection from './components/TimelineSection';
 import CaseStudyPreview from './components/CaseStudyPreview';
 import InteractiveMetrics from './components/InteractiveMetrics';
 import Footer from './components/Footer';
-import ParticleBackground from './components/ParticleBackground';
 import ScrollProgressIndicator from './components/ScrollProgressIndicator';
 import AccessibilityFeatures from './components/AccessibilityFeatures';
-import ParallaxSection from './components/ParallaxSection';
 import CopilotCaseStudy from './components/CopilotCaseStudy';
 import DataActivatorCaseStudy from './components/DataActivatorCaseStudy';
 
@@ -22,7 +20,7 @@ function App() {
   if (currentPage === 'copilot-case-study') {
     return (
       <HelmetProvider>
-        <div className="min-h-screen bg-vibe-dark text-vibe-text">
+        <div className="min-h-screen bg-white text-primary">
           <Helmet>
             <title>Microsoft Copilot Integration Case Study - Ed Miller</title>
             <meta name="description" content="Deep dive into the Microsoft Copilot integration for SQL Server Management Studio, reaching 9+ million users with AI-powered design solutions." />
@@ -33,8 +31,14 @@ function App() {
           
           {/* Back Button */}
           <motion.button
-            onClick={() => setCurrentPage('home')}
-            className="fixed top-8 left-8 z-50 px-6 py-3 bg-vibe-dark/90 backdrop-blur-sm rounded-full border border-white/20 text-white hover:bg-vibe-accent hover:border-vibe-accent transition-all duration-300 flex items-center gap-2"
+            onClick={() => {
+              setCurrentPage('home');
+              setTimeout(() => {
+                const el = document.getElementById('projects');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }, 100);
+            }}
+            className="fixed top-8 left-8 z-50 px-6 py-3 bg-white/90 backdrop-blur-sm rounded-full border border-gray-200 text-primary hover:bg-primary-accent hover:text-white transition-all duration-300 flex items-center gap-2"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -49,7 +53,7 @@ function App() {
   if (currentPage === 'data-activator-case-study') {
     return (
       <HelmetProvider>
-        <div className="min-h-screen bg-vibe-dark text-vibe-text">
+        <div className="min-h-screen bg-white text-primary">
           <Helmet>
             <title>Data Activator Experience Case Study - Ed Miller</title>
             <meta name="description" content="Comprehensive case study on designing Data Activator creation experience for real-time data processing and enterprise analytics." />
@@ -60,8 +64,14 @@ function App() {
           
           {/* Back Button */}
           <motion.button
-            onClick={() => setCurrentPage('home')}
-            className="fixed top-8 left-8 z-50 px-6 py-3 bg-vibe-dark/90 backdrop-blur-sm rounded-full border border-white/20 text-white hover:bg-vibe-accent hover:border-vibe-accent transition-all duration-300 flex items-center gap-2"
+            onClick={() => {
+              setCurrentPage('home');
+              setTimeout(() => {
+                const el = document.getElementById('projects');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }, 100);
+            }}
+            className="fixed top-8 left-8 z-50 px-6 py-3 bg-white/90 backdrop-blur-sm rounded-full border border-gray-200 text-primary hover:bg-primary-accent hover:text-white transition-all duration-300 flex items-center gap-2"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -76,7 +86,7 @@ function App() {
   if (currentPage === 'about') {
     return (
       <HelmetProvider>
-        <div className="min-h-screen bg-vibe-dark text-vibe-text">
+        <div className="min-h-screen bg-white text-primary">
           <Helmet>
             <title>About Ed Miller - Principal Product Designer</title>
             <meta name="description" content="Learn more about Ed Miller's journey as a Principal Product Designer at Microsoft, specializing in AI-powered user experiences and data visualization." />
@@ -88,7 +98,7 @@ function App() {
           {/* Back Button */}
           <motion.button
             onClick={() => setCurrentPage('home')}
-            className="fixed top-8 left-8 z-50 px-6 py-3 bg-vibe-dark/90 backdrop-blur-sm rounded-full border border-white/20 text-white hover:bg-vibe-accent hover:border-vibe-accent transition-all duration-300 flex items-center gap-2"
+            className="fixed top-8 left-8 z-50 px-6 py-3 bg-white/90 backdrop-blur-sm rounded-full border border-gray-200 text-primary hover:bg-primary-accent hover:text-white transition-all duration-300 flex items-center gap-2"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -109,7 +119,7 @@ function App() {
 
   return (
     <HelmetProvider>
-      <div className="min-h-screen bg-vibe-dark text-vibe-text relative overflow-x-hidden">
+      <div className="min-h-screen bg-white text-primary relative overflow-x-hidden">
         <Helmet>
           <title>Ed Miller - Principal Product Designer | AI Portfolio</title>
           <meta name="description" content="Ed Miller's portfolio showcasing 15+ years of experience at Microsoft in UX design, AI interfaces, and design systems. Specializing in data-driven design solutions." />
@@ -121,57 +131,50 @@ function App() {
         </Helmet>
 
         {/* Accessibility Features */}
-        <AccessibilityFeatures />
+        {/* <AccessibilityFeatures /> */}
 
-        {/* Background Elements */}
-        <ParticleBackground />
-        
         {/* Navigation */}
         <motion.nav 
-          className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-vibe-dark/80 border-b border-white/10 w-full"
+          className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary-accent via-primary to-primary/90 bg-white/60 backdrop-blur-md shadow-lg w-full"
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ 
-            duration: 0.8, 
-            ease: "easeOut", 
-            delay: 0.2 
-          }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
-          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-6 flex justify-between items-center">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-3 flex justify-between items-center">
             <motion.a 
               href="#hero"
               onClick={handleLogoClick}
-              className="flex items-center gap-3 text-vibe-text-dim hover:text-vibe-text transition-colors duration-300"
+              className="flex items-center gap-3 text-contrast hover:text-primary-accent transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center shadow-md">
                 <img 
                   src={import.meta.env.BASE_URL + 'avatar.png'}
-                  alt="Ed Miller Avatar" 
-                  className="w-full h-full object-cover"
+                  alt="Avatar Logo" 
+                  className="w-full h-full object-contain"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
-                    target.parentElement!.innerHTML = '<div class=\"w-8 h-8 bg-vibe-sienna rounded-lg flex items-center justify-center text-white font-bold\">EM</div>';
+                    target.parentElement!.innerHTML = '<div class=\"w-8 h-8 bg-primary-accent rounded-lg flex items-center justify-center text-white font-bold\">EM</div>';
                   }}
                 />
               </div>
-              <span className="text-sm sm:text-base font-medium bg-gradient-to-r from-vibe-accent to-vibe-blue bg-clip-text text-transparent">
+              <span className="text-sm sm:text-base font-medium text-white hover:text-primary-accent transition-colors duration-300" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.18)' }}>
                 AI Integration & Design Innovation
               </span>
             </motion.a>
             {/* Hamburger for mobile */}
             <button
-              className="sm:hidden flex flex-col gap-1.5 p-2 rounded focus:outline-none focus:ring-2 focus:ring-vibe-blue"
+              className="sm:hidden flex flex-col gap-1.5 p-2 rounded focus:outline-none focus:ring-2 focus:ring-accent text-white"
               aria-label="Open navigation menu"
               onClick={() => setNavOpen(!navOpen)}
             >
-              <span className={`block w-6 h-0.5 bg-vibe-text transition-all duration-300 ${navOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
-              <span className={`block w-6 h-0.5 bg-vibe-text transition-all duration-300 ${navOpen ? 'opacity-0' : ''}`}></span>
-              <span className={`block w-6 h-0.5 bg-vibe-text transition-all duration-300 ${navOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
+              <span className={`block w-6 h-0.5 bg-primary transition-all duration-300 ${navOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
+              <span className={`block w-6 h-0.5 bg-primary transition-all duration-300 ${navOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`block w-6 h-0.5 bg-primary transition-all duration-300 ${navOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
             </button>
             {/* Desktop nav */}
             <motion.div 
@@ -180,64 +183,50 @@ function App() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              <NavLink href="#hero">Home</NavLink>
-              <NavLink href="#case-studies">Case Studies</NavLink>
-              <NavLink href="#impact">Impact</NavLink>
-              <NavLink href="#history">History</NavLink>
-              <NavLink href="#contact">Contact</NavLink>
-              <button
-                onClick={() => setCurrentPage('about')}
-                className="text-vibe-text-dim hover:text-vibe-text transition-colors duration-300 font-medium text-sm sm:text-base"
-              >
-                About
-              </button>
+              <NavLink href="#hero" className="bg-background/80 backdrop-blur rounded-full text-primary font-bold px-5 py-2 mx-1 transition-all duration-200 hover:bg-primary-accent/90 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-accent">About</NavLink>
+              <NavLink href="#projects" className="bg-background/80 backdrop-blur rounded-full text-primary font-bold px-5 py-2 mx-1 transition-all duration-200 hover:bg-primary-accent/90 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-accent">Projects</NavLink>
+              <NavLink href="#impact" className="bg-background/80 backdrop-blur rounded-full text-primary font-bold px-5 py-2 mx-1 transition-all duration-200 hover:bg-primary-accent/90 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-accent">Impact</NavLink>
+              <NavLink href="#history" className="bg-background/80 backdrop-blur rounded-full text-primary font-bold px-5 py-2 mx-1 transition-all duration-200 hover:bg-primary-accent/90 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-accent">History</NavLink>
+              <NavLink href="#contact" className="bg-background/80 backdrop-blur rounded-full text-primary font-bold px-5 py-2 mx-1 transition-all duration-200 hover:bg-primary-accent/90 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-accent">Contact</NavLink>
             </motion.div>
           </div>
           {/* Mobile nav menu */}
           {navOpen && (
-            <div className="sm:hidden bg-vibe-dark/95 backdrop-blur-md border-t border-white/10 px-6 py-6 flex flex-col gap-6 text-lg font-semibold">
-              <NavLink href="#hero" >Home</NavLink>
-              <NavLink href="#case-studies">Case Studies</NavLink>
-              <NavLink href="#impact">Impact</NavLink>
-              <NavLink href="#history">History</NavLink>
-              <NavLink href="#contact">Contact</NavLink>
-              <button
-                onClick={() => { setCurrentPage('about'); setNavOpen(false); }}
-                className="text-vibe-text-dim hover:text-vibe-text transition-colors duration-300 font-medium text-base text-left"
-              >
-                About
-              </button>
+            <div className="sm:hidden bg-primary/90 backdrop-blur shadow-lg px-6 py-6 flex flex-col gap-6 text-lg font-semibold">
+              <NavLink href="#hero" className="bg-background/80 backdrop-blur rounded-full text-primary font-bold px-5 py-2 my-1 transition-all duration-200 hover:bg-primary-accent/90 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-accent">About</NavLink>
+              <NavLink href="#projects" className="bg-background/80 backdrop-blur rounded-full text-primary font-bold px-5 py-2 my-1 transition-all duration-200 hover:bg-primary-accent/90 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-accent">Projects</NavLink>
+              <NavLink href="#impact" className="bg-background/80 backdrop-blur rounded-full text-primary font-bold px-5 py-2 my-1 transition-all duration-200 hover:bg-primary-accent/90 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-accent">Impact</NavLink>
+              <NavLink href="#history" className="bg-background/80 backdrop-blur rounded-full text-primary font-bold px-5 py-2 my-1 transition-all duration-200 hover:bg-primary-accent/90 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-accent">History</NavLink>
+              <NavLink href="#contact" className="bg-background/80 backdrop-blur rounded-full text-primary font-bold px-5 py-2 my-1 transition-all duration-200 hover:bg-primary-accent/90 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-accent">Contact</NavLink>
             </div>
           )}
         </motion.nav>
 
         {/* Main Content */}
-        <main id="main-content">
-          {/* Skills Summary - New front page */}
-          <section id="hero">
+        <main id="main-content" className="snap-y snap-mandatory">
+          {/* Skills Summary - Hero Section */}
+          <section id="hero" className="snap-start min-h-[calc(100vh-4rem)] flex flex-col justify-center">
             <SkillsSummary onNavigate={setCurrentPage} />
           </section>
 
-          {/* Case Studies Section */}
-          <section id="case-studies">
+          {/* Projects Section */}
+          <section id="projects" className="snap-start min-h-[calc(100vh-4rem)] flex flex-col justify-center bg-gray-50">
             <CaseStudyPreview onNavigate={setCurrentPage} />
           </section>
 
           {/* Impact Section */}
-          <section id="impact">
-            <ParallaxSection speed={0.2}>
-              <InteractiveMetrics />
-            </ParallaxSection>
+          <section id="impact" className="snap-start min-h-[calc(100vh-4rem)] flex flex-col justify-center bg-gray-50">
+            <InteractiveMetrics />
           </section>
 
           {/* History Section (Timeline) */}
-          <section id="history">
+          <section id="history" className="snap-start min-h-[calc(100vh-4rem)] flex flex-col justify-center bg-white">
             <TimelineSection />
           </section>
         </main>
 
-        {/* Contact Section */}
-        <section id="contact">
+        {/* Contact Section / Footer */}
+        <section id="contact" className="snap-start min-h-[calc(100vh-4rem)] flex flex-col justify-center bg-white">
           <Footer />
         </section>
 
@@ -248,7 +237,7 @@ function App() {
   );
 }
 
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+function NavLink({ href, children, className = "" }: { href: string; children: React.ReactNode; className?: string }) {
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     const element = document.querySelector(href);
@@ -261,7 +250,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
     <motion.a
       href={href}
       onClick={handleClick}
-      className="text-vibe-text-dim hover:text-vibe-text transition-colors duration-300 font-medium text-sm sm:text-base"
+      className={`text-indigo-800 hover:text-indigo-900 transition-colors duration-300 font-medium text-sm sm:text-base ${className}`}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >

@@ -7,8 +7,8 @@ const ScrollProgressIndicator: React.FC = () => {
 
   // Updated sections to match new structure
   const sections = [
-    { id: 'hero', label: 'Home', icon: '🏠' },
-    { id: 'case-studies', label: 'Case Studies', icon: '💼' },
+    { id: 'hero', label: 'About', icon: '🏠' },
+    { id: 'projects', label: 'Projects', icon: '💼' },
     { id: 'impact', label: 'Impact', icon: '📊' },
     { id: 'history', label: 'History', icon: '🚀' },
     { id: 'contact', label: 'Contact', icon: '📧' }
@@ -20,20 +20,23 @@ const ScrollProgressIndicator: React.FC = () => {
       const progress = (window.scrollY / totalHeight) * 100;
       setScrollProgress(Math.min(progress, 100));
 
-      // Determine active section
-      const sectionElements = sections.map(section => 
-        document.getElementById(section.id)
-      ).filter(Boolean);
-
-      const currentSection = sectionElements.find(element => {
-        if (!element) return false;
-        const rect = element.getBoundingClientRect();
-        return rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
+      // Determine the section whose center is closest to the viewport center
+      const viewportCenter = window.innerHeight / 2;
+      let closestSectionId = sections[0].id;
+      let minDistance = Infinity;
+      sections.forEach(section => {
+        const el = document.getElementById(section.id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          const sectionCenter = rect.top + rect.height / 2;
+          const distance = Math.abs(sectionCenter - viewportCenter);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestSectionId = section.id;
+          }
+        }
       });
-
-      if (currentSection) {
-        setActiveSection(currentSection.id);
-      }
+      setActiveSection(closestSectionId);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -43,6 +46,7 @@ const ScrollProgressIndicator: React.FC = () => {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
+    setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -55,7 +59,7 @@ const ScrollProgressIndicator: React.FC = () => {
       <div className="flex justify-center mb-6">
         <div className="relative w-1 h-64 bg-gray-300 rounded-full overflow-hidden border border-gray-400">
           <motion.div
-            className="absolute top-0 left-0 w-full bg-gradient-to-b from-vibe-sienna to-vibe-blue rounded-full"
+            className="absolute top-0 left-0 w-full bg-gradient-to-b from-primary-accent to-indigo-800 rounded-full"
             style={{ height: `${scrollProgress}%` }}
             transition={{ duration: 0.1 }}
           />
@@ -70,8 +74,8 @@ const ScrollProgressIndicator: React.FC = () => {
             onClick={() => scrollToSection(section.id)}
             className={`group relative flex items-center justify-center transition-all duration-300 ${
               activeSection === section.id 
-                ? 'text-vibe-sienna' 
-                : 'text-gray-500 hover:text-vibe-sienna'
+                ? 'text-primary-accent' 
+                : 'text-gray-500 hover:text-primary-accent'
             }`}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -81,24 +85,25 @@ const ScrollProgressIndicator: React.FC = () => {
           >
             <div className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
               activeSection === section.id
-                ? 'bg-vibe-sienna border-vibe-sienna scale-125'
-                : 'border-gray-400 hover:border-vibe-sienna/70 bg-white'
+                ? 'bg-primary-accent border-primary-accent scale-125'
+                : 'border-gray-400 hover:border-primary-accent/70 bg-white'
             }`} />
           </motion.button>
         ))}
       </div>
 
-      {/* Scroll Hint */}
-      <motion.div
-        className="mt-8 flex flex-col items-center"
-        animate={{ y: [0, 5, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <div className="text-xs text-gray-600 text-center">
-          Scroll
-        </div>
-        <div className="w-px h-8 bg-gradient-to-b from-vibe-sienna to-transparent mt-2" />
-      </motion.div>
+      {/* Scroll Hint with Animated Arrow */}
+      <div className="mt-8 flex flex-col items-center">
+        <div className="text-xs text-gray-600 text-center mb-2">Scroll</div>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <svg className="w-6 h-6 text-primary-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </motion.div>
+      </div>
     </div>
   );
 };

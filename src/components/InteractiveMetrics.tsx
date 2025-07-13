@@ -30,7 +30,7 @@ const InteractiveMetrics: React.FC = () => {
       suffix: '+',
       label: 'Years at Microsoft',
       description: 'Progressive experience in product design and AI integration',
-      color: 'sienna',
+      color: 'primary-accent',
       animationDelay: 0
     },
     {
@@ -40,7 +40,7 @@ const InteractiveMetrics: React.FC = () => {
       suffix: '+',
       label: 'Monthly Active Users',
       description: 'Reached through SSMS and Microsoft Copilot integration',
-      color: 'blue',
+      color: 'indigo-800',
       animationDelay: 0.2
     },
     {
@@ -50,7 +50,7 @@ const InteractiveMetrics: React.FC = () => {
       suffix: '%',
       label: 'Faster Analysis',
       description: 'Achieved through AI integration and UX optimization',
-      color: 'purple',
+      color: 'primary',
       animationDelay: 0.4
     },
     {
@@ -60,7 +60,7 @@ const InteractiveMetrics: React.FC = () => {
       suffix: '/5',
       label: 'User Rating',
       description: 'Average satisfaction score across major projects',
-      color: 'sienna',
+      color: 'primary-accent',
       animationDelay: 0.6
     },
     {
@@ -70,17 +70,17 @@ const InteractiveMetrics: React.FC = () => {
       suffix: '',
       label: 'Patent Filed',
       description: 'Techniques for Ingesting time-series based real time event data',
-      color: 'blue',
+      color: 'indigo-800',
       animationDelay: 0.8
     },
     {
       id: 'awards',
       icon: Target,
-      value: 5,
+      value: 3,
       suffix: '',
       label: 'Awards & Recognition',
-      description: 'Earned 3 delight the customer awards, 2X hackathon winner',
-      color: 'purple',
+      description: 'Earned 3 delight the customer awards',
+      color: 'primary',
       animationDelay: 1.0
     }
   ];
@@ -133,29 +133,29 @@ const InteractiveMetrics: React.FC = () => {
 
   const getColorClasses = (color: string) => {
     const colorMap = {
-      sienna: {
+      'primary-accent': {
         bg: 'bg-white',
-        border: 'border-vibe-sienna/30',
-        text: 'text-vibe-sienna',
-        iconBg: 'bg-vibe-sienna/10',
+        border: 'border-primary-accent/30',
+        text: 'text-primary-accent',
+        iconBg: 'bg-primary-accent/10',
         shadow: 'shadow-lg hover:shadow-xl'
       },
-      blue: {
+      'indigo-800': {
         bg: 'bg-white',
-        border: 'border-vibe-blue/30',
-        text: 'text-vibe-blue',
-        iconBg: 'bg-vibe-blue/10',
+        border: 'border-indigo-800/30',
+        text: 'text-indigo-800',
+        iconBg: 'bg-indigo-800/10',
         shadow: 'shadow-lg hover:shadow-xl'
       },
-      purple: {
+      'primary': {
         bg: 'bg-white',
-        border: 'border-vibe-purple/30',
-        text: 'text-vibe-purple',
-        iconBg: 'bg-vibe-purple/10',
+        border: 'border-primary/30',
+        text: 'text-primary',
+        iconBg: 'bg-primary/10',
         shadow: 'shadow-lg hover:shadow-xl'
       }
     };
-    return colorMap[color as keyof typeof colorMap] || colorMap.sienna;
+    return colorMap[color as keyof typeof colorMap] || colorMap['primary-accent'];
   };
 
   return (
@@ -167,8 +167,8 @@ const InteractiveMetrics: React.FC = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-vibe-gray">
-            <span className="bg-gradient-to-r from-vibe-sienna via-vibe-blue to-vibe-purple bg-clip-text text-transparent">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
+            <span className="bg-gradient-to-r from-primary-accent via-indigo-800 to-primary bg-clip-text text-transparent">
               Impact by Numbers
             </span>
           </h2>
@@ -221,7 +221,7 @@ const InteractiveMetrics: React.FC = () => {
                       {formatValue(metric)}
                       <span className="text-2xl">{metric.suffix}</span>
                     </motion.div>
-                    <h3 className="text-xl font-bold text-vibe-gray mb-2">
+                    <h3 className="text-xl font-bold text-primary mb-2">
                       {metric.label}
                     </h3>
                   </div>
