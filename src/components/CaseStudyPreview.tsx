@@ -434,6 +434,12 @@ function ProjectCard({ study, onNavigate, inView, onShowDetails }: ProjectCardPr
             )}
             {study.id === 'next-project-wip' ? (
               <RotatingCubeWithQuestionMark />
+            ) : study.id === 'ai-productivity' ? (
+              <img
+                src={images[carouselIndex]}
+                alt={study.title}
+                className="w-full h-36 object-cover object-center transition-transform duration-700 m-0 p-0"
+              />
             ) : (
               <img
                 src={images[carouselIndex]}
