@@ -121,13 +121,13 @@ function App() {
     <HelmetProvider>
       <div className="min-h-screen bg-white text-primary relative overflow-x-hidden">
         <Helmet>
-          <title>Ed Miller - Principal Product Designer | AI Portfolio</title>
+          <title>Ed Miller - Design Portfolio</title>
           <meta name="description" content="Ed Miller's portfolio showcasing 15+ years of experience at Microsoft in UX design, AI interfaces, and design systems. Specializing in data-driven design solutions." />
           <meta name="keywords" content="UX Designer, AI Design, Design Systems, User Experience, Portfolio, Microsoft, Seattle" />
           <meta property="og:title" content="Ed Miller - Principal Product Designer" />
           <meta property="og:description" content="Principal Product Designer with 15+ years at Microsoft, specializing in AI-powered user experiences and data visualization" />
           <meta property="og:type" content="website" />
-          <link rel="canonical" href="https://edmiller-portfolio.com" />
+          <link rel="canonical" href="https://edmill.github.io/portfolio/" />
         </Helmet>
 
         {/* Accessibility Features */}

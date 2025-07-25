@@ -54,7 +54,7 @@ const SkillsSummary: React.FC<SkillsSummaryProps> = ({ onNavigate }) => {
         />
         {/* Right: Greeting and content */}
         <div className="w-full md:w-7/12 flex flex-col justify-center items-stretch px-8 py-16 md:py-0 md:pr-32 md:pl-16 gap-6 z-10 min-w-0">
-          <h3 className="text-lg md:text-xl text-white/70 mb-2">Experience Designer — Seattle, WA</h3>
+          <h3 className="text-lg md:text-xl text-white/70 mb-2">AI Experience Designer in the greater Seattle area</h3>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-2 w-full">
             <motion.span
               style={{ display: 'inline-block', originX: 0.7, originY: 0.7 }}
@@ -69,10 +69,10 @@ const SkillsSummary: React.FC<SkillsSummaryProps> = ({ onNavigate }) => {
             Hi, I’m Ed Miller
           </h1>
           <p className="text-base md:text-lg text-white/80 leading-relaxed mb-4">
-            A data-driven Experience Designer with 15+ years of progressive experience at Microsoft, specializing in AI-powered user experiences, prototyping, and innovative design solutions.
+            A data-driven Experience Designer with 15+ years of progressive experience at Microsoft, specializing in AI-powered user experiences, prototyping (D2C), and innovative design solutions.
           </p>
           <p className="text-base md:text-lg text-white/70 leading-relaxed mb-6">
-            With a background spanning user interface development, immersive 3D design, and AI-integrated UX for enterprise tools. My focus is on AI innovation, storytelling through interaction, and solving complex challenges for real users. I'm a huge believer in building as a path to learning and thrive on collaboration across disciplines.
+            With a background spanning user interface development, immersive 3D design, and AI-integrated UX for enterprise tools. My current focus is on AI innovation, delight through interaction, and solving complex challenges for real users. I'm a huge believer in building as a path to learning and thrive on collaboration across disciplines.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <button
