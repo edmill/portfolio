@@ -6,7 +6,7 @@ const AboutPage: React.FC = () => {
       <div className="max-w-xl w-full text-center py-24">
         <h1 className="text-3xl md:text-4xl font-bold text-primary mb-6">Ed Miller</h1>
         <h2 className="text-lg md:text-xl text-gray-700 font-medium mb-8">
-          AI Experience Designer - Greater Seattle Area
+          AI Experience Designer | Greater Seattle Area
         </h2>
         <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-8">
           I’m an experience designer with a background spanning user interface development, immersive 3D design, and AI-integrated UX for enterprise tools. My focus is on AI innovation, storytelling through interaction, and solving complex challenges for real users. I believe in building as a path to learning and thrive on collaboration across disciplines.
