@@ -139,8 +139,8 @@ const CopilotCaseStudy: React.FC<CopilotCaseStudyProps> = ({ onNavigate }) => {
 
   const researchInsights = [
     {
-      title: "User Interviews & Observations",
-      description: "Conducted 15 interviews with database administrators, developers, and analysts across enterprise and SMB environments.",
+      title: "User Interviews & Roundtables",
+      description: "Conducted 15 interviews with database administrators, developers, and data engineers across enterprise and SMB environments.",
       findings: [
         "Users spend 40% of time debugging and optimizing queries",
         "Context switching between documentation and SSMS breaks flow",
@@ -150,22 +150,12 @@ const CopilotCaseStudy: React.FC<CopilotCaseStudyProps> = ({ onNavigate }) => {
     },
     {
       title: "Usage Analytics & Behavioral Data",
-      description: "Analyzed SSMS usage patterns across 9M+ users to identify optimization opportunities and feature gaps.",
+      description: "Analyzed SSMS usage patterns to identify optimization opportunities and feature gaps.",
       findings: [
         "Most common queries follow predictable patterns",
         "Users frequently repeat similar query structures",
         "Error rates highest during complex join operations",
         "Help documentation accessed most during query writing"
-      ]
-    },
-    {
-      title: "Competitive Analysis & Market Research",
-      description: "Evaluated AI integration approaches in developer tools and database management platforms.",
-      findings: [
-        "Most AI tools lack database-specific context",
-        "Generic code completion doesn't address SQL nuances",
-        "Users prefer inline suggestions over separate AI panels",
-        "Trust built through transparency and explainability"
       ]
     }
   ];
@@ -193,7 +183,7 @@ const CopilotCaseStudy: React.FC<CopilotCaseStudyProps> = ({ onNavigate }) => {
                   <h4 className="font-semibold text-gray-700">Team Collaboration</h4>
                 </div>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  Cross-functional team of <strong>12 members</strong>: 1 UX designer (me), 6 engineers, 2 product managers, 2 data scientists, 1 user researcher
+                  Cross-functional team of <strong>9 members</strong>: 1 UX designer (me), 6 engineers, 2 product managers
                 </p>
               </div>
               
@@ -226,7 +216,7 @@ const CopilotCaseStudy: React.FC<CopilotCaseStudyProps> = ({ onNavigate }) => {
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-primary-accent mt-1 flex-shrink-0" />
-                    <span className="text-gray-600">Led design strategy as the sole UX designer on a cross-functional team of 12</span>
+                    <span className="text-gray-600">Led design strategy as the sole UX designer on a cross-functional team of 9 members</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-primary-accent mt-1 flex-shrink-0" />
@@ -411,14 +401,9 @@ const CopilotCaseStudy: React.FC<CopilotCaseStudyProps> = ({ onNavigate }) => {
               <h4 className="text-xl font-bold text-gray-700 mb-4">Design Innovation</h4>
               <p className="text-gray-600 leading-relaxed mb-4">
                 The key innovation was creating a contextual AI assistant that understands not just the SQL being written, 
-                but the entire database environment, user's role, and current task. This allowed us to provide highly 
+                but the entire database environment, user's role, and current task. This allowed me to provide highly 
                 relevant suggestions that feel like having an expert colleague looking over your shoulder, rather than 
                 a generic AI tool.
-              </p>
-              <p className="text-gray-600 leading-relaxed">
-                We implemented a progressive disclosure model where AI features are introduced through natural entry points 
-                in existing workflows, building user confidence and trust over time. The system learns from user interactions 
-                to provide increasingly personalized and accurate suggestions.
               </p>
             </div>
           </div>

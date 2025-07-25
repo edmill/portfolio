@@ -62,7 +62,7 @@ const DataActivatorCaseStudy: React.FC<DataActivatorCaseStudyProps> = ({ onNavig
     { icon: Clock, value: "60%", label: "Faster Insights", description: "Time to actionable data insights" },
     { icon: Users, value: "Enterprise", label: "Scale", description: "Built for enterprise-level data" },
     { icon: Activity, value: "Real-Time", label: "Processing", description: "Live data monitoring & alerts" },
-    { icon: BarChart3, value: "85%", label: "Adoption Rate", description: "Among beta enterprise customers" }
+    { icon: BarChart3, value: "85%", label: "Adoption Rate", description: "Among preview enterprise customers" }
   ];
 
   const challenges = [
@@ -147,7 +147,7 @@ const DataActivatorCaseStudy: React.FC<DataActivatorCaseStudyProps> = ({ onNavig
                   <h4 className="font-semibold text-gray-700">My Role</h4>
                 </div>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  <strong>Principal Product Designer</strong> - Led end-to-end UX design for Data Activator platform, from concept to enterprise deployment
+                  <strong>Principal Product Designer</strong> - Led end-to-end UX design for Data Activator object creation
                 </p>
               </div>
               
@@ -157,7 +157,7 @@ const DataActivatorCaseStudy: React.FC<DataActivatorCaseStudyProps> = ({ onNavig
                   <h4 className="font-semibold text-gray-700">Team Collaboration</h4>
                 </div>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  Cross-functional team of <strong>15 members</strong>: 4 UX designers, 6 engineers, 2 product managers, 2 data scientists, 1 user researcher
+                  Cross-functional team of <strong>20 members</strong>: 4 UX designers, 1 General Manager, 12 engineers, 3 product managers
                 </p>
               </div>
               
@@ -178,13 +178,13 @@ const DataActivatorCaseStudy: React.FC<DataActivatorCaseStudyProps> = ({ onNavig
                 <h3 className="text-2xl font-bold text-gray-700 mb-4">Project Overview</h3>
                 <p className="text-gray-600 leading-relaxed mb-6">
                   As Principal Product Designer for Data Activator, I led the design of a comprehensive 
-                  real-time data processing and analytics platform. This was a <strong>0-1 product development</strong> project, 
+                  real-time data processing platform. This was a <strong>0-1 product development</strong> project, 
                   where we built a completely new product category from concept to enterprise deployment. 
                   The goal was to democratize data monitoring for enterprise users, enabling business analysts 
                   to create sophisticated data workflows without technical expertise.
                 </p>
                 <p className="text-gray-600 leading-relaxed mb-6">
-                  This project required deep collaboration with data scientists, enterprise customers, and 
+                  This project required deep collaboration with enterprise customers, and 
                   engineering teams to create a platform that could handle massive data volumes while 
                   remaining intuitive for non-technical users. The challenge was balancing power with simplicity 
                   while establishing an entirely new product category in the market.
@@ -192,7 +192,7 @@ const DataActivatorCaseStudy: React.FC<DataActivatorCaseStudyProps> = ({ onNavig
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-primary-accent mt-1 flex-shrink-0" />
-                    <span className="text-gray-600">Led the design for the end-to-end user flow for a 0-1 product</span>
+                    <span className="text-gray-600">Led the design for the end-to-end creation flow for a 0-1 product</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-primary-accent mt-1 flex-shrink-0" />
@@ -200,11 +200,7 @@ const DataActivatorCaseStudy: React.FC<DataActivatorCaseStudyProps> = ({ onNavig
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-primary-accent mt-1 flex-shrink-0" />
-                    <span className="text-gray-600">Achieved &gt; 80% user adoption among beta enterprise customers</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary-accent mt-1 flex-shrink-0" />
-                    <span className="text-gray-600">Reduced operational cost by 20% for early adopters</span>
+                    <span className="text-gray-600">Achieved &gt; 80% user adoption among preview enterprise customers</span>
                   </div>
                 </div>
               </div>
@@ -280,9 +276,8 @@ const DataActivatorCaseStudy: React.FC<DataActivatorCaseStudyProps> = ({ onNavig
                   <p className="text-gray-600 text-sm mb-4">Conducted iterative usability testing with Private Preview customers to validate design decisions and interaction patterns.</p>
                   <ul className="text-xs text-gray-600 space-y-1">
                     <li>• Visual workflow builder usability</li>
-                    <li>• Alert configuration complexity</li>
-                    <li>• Dashboard customization preferences</li>
-                    <li>• Mobile experience requirements</li>
+                    <li>• Action configuration complexity</li>
+                    <li>• Alert customization preferences</li>
                   </ul>
                 </div>
               </div>
@@ -489,15 +484,11 @@ const DataActivatorCaseStudy: React.FC<DataActivatorCaseStudyProps> = ({ onNavig
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-primary-accent mt-1 flex-shrink-0" />
-                    Featured in Microsoft Ignite 2024 data analytics showcase
+                    Previewed at Microsoft Ignite 2024
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-primary-accent mt-1 flex-shrink-0" />
-                    Design methodology adopted across Microsoft data products
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-primary-accent mt-1 flex-shrink-0" />
-                    Influenced time-series dataviz across Fabric
+                    Influenced time-series dataviz across Fluent design system
                   </li>
                 </ul>
               </div>
