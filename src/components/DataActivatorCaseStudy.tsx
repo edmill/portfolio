@@ -504,10 +504,6 @@ const DataActivatorCaseStudy: React.FC<DataActivatorCaseStudyProps> = ({ onNavig
                     <TrendingUp className="w-4 h-4 text-indigo-800 mt-1 flex-shrink-0" />
                     60% reduction in time-to-insight for business analysts
                   </li>
-                  <li className="flex items-start gap-2">
-                    <TrendingUp className="w-4 h-4 text-indigo-800 mt-1 flex-shrink-0" />
-                    Reduced operational cost by 20% for early adopters
-                  </li>
                 </ul>
               </div>
             </div>
