@@ -163,7 +163,7 @@ function App() {
                 />
               </div>
               <span className="text-sm sm:text-base font-medium text-white hover:text-primary-accent transition-colors duration-300" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.18)' }}>
-                AI Integration & Design Innovation
+              Ed Miller | AI Experience Design
               </span>
             </motion.a>
             {/* Hamburger for mobile */}

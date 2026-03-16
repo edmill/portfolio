@@ -91,9 +91,9 @@ const CaseStudyPreview: React.FC<CaseStudyPreviewProps> = ({ onNavigate }) => {
     },
     {
       id: 'ai-productivity',
-      title: "AI Productivity Tools",
-      subtitle: "Designing for Next-Gen Efficiency",
-      description: "Exploring the intersection of AI and productivity—designing tools that empower users to automate workflows, enhance focus, and achieve more with less effort.",
+      title: "Ponder",
+      subtitle: "Multi-Agent AI Prototyping Platform",
+      description: "An AI-orchestrated workspace for turning ideas into working software. Ponder uses an infinite canvas and collaborating AI agents to design, plan, and generate functional prototypes.",
       image: "ponder.png",
       tags: ["Project", "AI Productivity", "Automation"],
       metrics: [
@@ -146,10 +146,10 @@ const CaseStudyPreview: React.FC<CaseStudyPreviewProps> = ({ onNavigate }) => {
     },
     {
       id: 'next-project-wip',
-      title: "Project X",
-      subtitle: "Coming Soon",
-      description: "This project is currently in progress. Check back soon for updates!",
-      image: "drawn.png",
+      title: "Crafted By AI",
+      subtitle: "Human + AI Creative Experiences",
+      description: "A platform showcasing interactive experiences created through collaboration between humans and AI — exploring new creative workflows, generative systems, and intelligent tools.",
+      image: "logo-main.png",
       tags: ["WIP", "Upcoming"],
       metrics: [],
       color: "indigo-800"
@@ -182,11 +182,11 @@ const CaseStudyPreview: React.FC<CaseStudyPreviewProps> = ({ onNavigate }) => {
         >
           <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
             <span className="bg-gradient-to-r from-primary-accent to-indigo-800 bg-clip-text text-transparent">
-              Featured Projects
+              Selected Work
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Deep dives into AI-powered solutions that transformed user experiences at enterprise scale.
+              Designing and prototyping AI-powered products at enterprise and startup scale.
           </p>
         </motion.div>
 
@@ -461,14 +461,27 @@ function ProjectCard({ study, onNavigate, inView, onShowDetails }: ProjectCardPr
               {study.description}
             </p>
             <div className="mt-auto">
-              <button
-                onClick={() => onShowDetails(study)}
-                className="w-full px-5 py-2 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 bg-accent text-contrast shadow hover:bg-cta hover:text-white focus:outline-none focus:ring-2 focus:ring-accent"
-                aria-label={`View details for ${study.title}`}
-              >
-                View Details
-                <ArrowRight className="w-4 h-4" />
-              </button>
+              {study.id === 'next-project-wip' ? (
+                <a
+                  href="https://craftedby.ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full px-5 py-2 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 bg-accent text-contrast shadow hover:bg-cta hover:text-white focus:outline-none focus:ring-2 focus:ring-accent"
+                  aria-label="Visit Crafted By AI website"
+                >
+                  Visit Website
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              ) : (
+                <button
+                  onClick={() => onShowDetails(study)}
+                  className="w-full px-5 py-2 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 bg-accent text-contrast shadow hover:bg-cta hover:text-white focus:outline-none focus:ring-2 focus:ring-accent"
+                  aria-label={`View details for ${study.title}`}
+                >
+                  View Details
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              )}
             </div>
           </div>
         </div>

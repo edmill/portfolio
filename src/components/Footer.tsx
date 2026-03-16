@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
           Let's Create Something Amazing
         </h2>
         <p className="text-lg text-gray-700 mb-8">
-          I'm always open to discussing new opportunities, collaborations, or just chatting about design.
+          I'm always open to discussing new opportunities, collaborations, or just chatting about AI + Design.
         </p>
         <a
           href="mailto:edmill@outlook.com"
@@ -54,8 +54,8 @@ const Footer: React.FC = () => {
             </svg>
           </a>
         </div>
-        <p className="text-gray-500 mb-2">Made in the ⛰ with <span className="text-primary-accent">❤️</span> and lots of coffee!</p>
-        <p className="text-sm text-gray-400">&copy; 2025 Ed Miller. All rights reserved.</p>
+        <p className="text-gray-500 mb-2">Made in the 🏔️ with <span className="text-primary-accent">❤️</span> and lots of ☕️</p>
+        <p className="text-sm text-gray-400">&copy; 2026 Ed Miller. All rights reserved.</p>
       </div>
     </footer>
   );

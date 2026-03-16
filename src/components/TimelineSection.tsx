@@ -11,6 +11,19 @@ const TimelineSection: React.FC = () => {
 
   const experiences = [
     {
+      year: "May 2025 - Present",
+      company: "Crafted By AI",
+      role: "Founder & Creative Lead",
+      location: "Greater Seattle Area",
+      achievements: [
+        "Building a platform showcasing interactive experiences created through collaboration between humans and AI",
+        "Exploring new creative workflows, generative systems, and intelligent tools in collaboration with human creativity and AI",
+        "Designing and prototyping experiences that demonstrate the potential of human + AI creative partnerships"
+      ],
+      color: "indigo-800",
+      showBullets: true
+    },
+    {
       year: "May 2022 - May 2025",
       company: "Microsoft Corporation",
       role: "Principal Product Designer",
@@ -116,7 +129,7 @@ const TimelineSection: React.FC = () => {
             </span>
           </h2>
           <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            15+ years of progressive experience specializing in AI-powered design solutions and data visualization.
+          15+ years designing and prototyping complex software systems, with a focus on AI-powered experiences, intelligent tools, and rapid product experimentation.
           </p>
         </motion.div>
         <div className="relative">
