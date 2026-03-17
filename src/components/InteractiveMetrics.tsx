@@ -118,17 +118,19 @@ const InteractiveMetrics: React.FC = () => {
   };
 
   const formatValue = (metric: Metric): string => {
-    const animatedValue = animatedValues[metric.id] || 0;
-    
+    const animatedValue = animatedValues[metric.id] ?? null;
+    // Avoid showing "0" before animation runs — show placeholder until value is ready
+    if (animatedValue === null || (animatedValue === 0 && metric.value !== 0)) {
+      return '—';
+    }
     if (metric.id === 'users') {
-      // Format as 9M+ for users
       const millions = Math.floor(animatedValue / 1000000);
       return `${millions}M`;
-    } else if (metric.id === 'satisfaction') {
-      return animatedValue.toFixed(1);
-    } else {
-      return Math.floor(animatedValue).toString();
     }
+    if (metric.id === 'satisfaction') {
+      return animatedValue.toFixed(1);
+    }
+    return Math.floor(animatedValue).toString();
   };
 
   const getColorClasses = (color: string) => {
@@ -205,10 +207,10 @@ const InteractiveMetrics: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Value */}
+                  {/* Value - placeholder (—) until animated to avoid showing zeros */}
                   <div className="text-center mb-4">
                     <motion.div 
-                      className={`text-4xl lg:text-5xl font-black ${colors.text} mb-2`}
+                      className={`text-4xl lg:text-5xl font-black mb-2 ${formatValue(metric) !== '—' ? colors.text : 'text-gray-300'}`}
                       initial={{ scale: 0 }}
                       animate={inView ? { scale: 1 } : {}}
                       transition={{ 
@@ -219,7 +221,9 @@ const InteractiveMetrics: React.FC = () => {
                       }}
                     >
                       {formatValue(metric)}
-                      <span className="text-2xl">{metric.suffix}</span>
+                      {formatValue(metric) !== '—' && (
+                        <span className="text-2xl">{metric.suffix}</span>
+                      )}
                     </motion.div>
                     <h3 className="text-xl font-bold text-primary mb-2">
                       {metric.label}

@@ -201,6 +201,17 @@ const CaseStudyPreview: React.FC<CaseStudyPreviewProps> = ({ onNavigate }) => {
   );
 };
 
+/** Max length for description shown on cards; details dialog still shows full text. */
+const CARD_DESCRIPTION_MAX_LENGTH = 100;
+
+function truncateForCard(text: string, maxLen: number = CARD_DESCRIPTION_MAX_LENGTH): string {
+  if (!text || text.length <= maxLen) return text;
+  const cut = text.slice(0, maxLen);
+  const lastSpace = cut.lastIndexOf(' ');
+  const trimmed = lastSpace > 50 ? cut.slice(0, lastSpace) : cut;
+  return trimmed.trim() + '...';
+}
+
 function getTextColorClass(color: string): string {
   switch (color) {
     case 'primary-accent':
@@ -287,7 +298,7 @@ function ProjectCard({ study, onNavigate, inView, onShowDetails }: ProjectCardPr
     setCarouselIndex((carouselIndex - 1 + images.length) % images.length);
   };
 
-  // Case study projects: navigate to detail page
+  // Case study projects: navigate to detail page (primary CTA = solid button)
   if (study.id === 'copilot-case-study' || study.id === 'data-activator-case-study') {
     return (
       <div className="cursor-pointer" tabIndex={0} role="group" aria-label={`Project card for ${study.title}`}>
@@ -296,61 +307,54 @@ function ProjectCard({ study, onNavigate, inView, onShowDetails }: ProjectCardPr
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          whileHover={{ y: -8 }}
+          whileHover={{ y: -6, scale: 1.02 }}
         >
-          <div className="relative overflow-hidden rounded-2xl bg-white border-2 border-gray-200 hover:border-gray-300 transition-all duration-500 shadow-lg hover:shadow-xl w-full h-[420px] flex flex-col">
-            {/* Header with tags */}
-            {(() => {
-              const pillsRef = useRef<HTMLDivElement>(null);
-              useAutoScrollOnInView(pillsRef, inView);
-              let pillLabel = 'Project';
-              if (study.id === 'copilot-case-study' || study.id === 'data-activator-case-study') {
-                pillLabel = 'Case Study';
-              }
-              return (
-                <div ref={pillsRef} className="bg-white rounded-t-2xl px-4 py-2 pb-0 flex gap-2 items-center border-b border-gray-100 min-h-[44px] flex-nowrap overflow-x-auto scrollbar-none justify-center" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-                  <span className={`px-3 py-1 text-xs rounded-full font-bold transition-all duration-300 whitespace-nowrap ${pillLabel === 'Case Study' ? 'bg-indigo-800 text-white' : 'bg-primary-accent text-white'}`}>
-                    {pillLabel}
-                  </span>
-                </div>
-              );
-            })()}
-            {/* Carousel */}
-            <div className="relative h-36 overflow-hidden flex items-center justify-center m-0 p-0">
-              {images.length > 1 && (
-                <>
-                  <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-primary-accent hover:text-white transition-colors border border-gray-200">
-                    <span className="sr-only">Previous</span>
-                    <span className="text-xl">&#8592;</span>
-                  </button>
-                  <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-primary-accent hover:text-white transition-colors border border-gray-200">
-                    <span className="sr-only">Next</span>
-                    <span className="text-xl">&#8594;</span>
-                  </button>
-                </>
-              )}
-              <img
-                src={images[carouselIndex]}
-                alt={study.title}
-                className="w-full h-36 object-cover object-center transition-transform duration-700 cursor-zoom-in m-0 p-0"
-                onClick={() => setLightboxOpen(true)}
-              />
+          <div className="relative overflow-hidden rounded-2xl border border-gray-300 bg-indigo-50/70 shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-300 w-full h-[420px] flex flex-col">
+            {/* Image with white space — contained, not full-bleed */}
+            <div className="px-5 pt-5">
+              <div className="relative h-40 rounded-xl overflow-hidden flex items-center justify-center opacity-80 transition-opacity duration-300 group-hover:opacity-100">
+                {images.length > 1 && (
+                  <>
+                    <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-primary-accent hover:text-white transition-colors border border-gray-200">
+                      <span className="sr-only">Previous</span>
+                      <span className="text-xl">&#8592;</span>
+                    </button>
+                    <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-primary-accent hover:text-white transition-colors border border-gray-200">
+                      <span className="sr-only">Next</span>
+                      <span className="text-xl">&#8594;</span>
+                    </button>
+                  </>
+                )}
+                <img
+                  src={images[carouselIndex]}
+                  alt={study.title}
+                  className="w-full h-full object-cover object-center cursor-zoom-in"
+                  onClick={() => setLightboxOpen(true)}
+                />
+                {/* Tag overlay - colored for visibility */}
+                <span className="absolute top-3 left-4 px-2.5 py-1 text-xs font-semibold rounded-full bg-indigo-600 text-white shadow-md">
+                  Case Study
+                </span>
+              </div>
             </div>
-            {/* Content */}
-            <div className="flex flex-col flex-1 p-3 pt-0">
-              <h3 className="text-lg font-bold text-primary mb-1 text-center truncate" title={study.title}>
+            {/* Title band — clear hierarchy: title leads, subtitle supports */}
+            <div className="px-5 py-4">
+              <h3 className="text-xl font-bold text-gray-900 tracking-tight text-left truncate mb-1.5" title={study.title}>
                 {study.title}
               </h3>
-              <h4 className={`text-base font-semibold mb-2 text-center truncate ${getTextColorClass(study.color)}`} title={study.subtitle}>
+              <p className="text-xs font-normal text-gray-600 tracking-wide text-left truncate" title={study.subtitle}>
                 {study.subtitle}
-              </h4>
-              <p className="text-gray-600 leading-relaxed mb-2 text-center text-sm overflow-hidden text-ellipsis flex-1" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }} title={study.description}>
-                {study.description}
               </p>
-              <div className="mt-auto">
+            </div>
+            {/* Content - more padding, aligned with image edges via px-5 */}
+            <div className="flex flex-col flex-1 px-5 pt-4 pb-5">
+              <p className="text-gray-500 text-xs leading-relaxed mb-4 text-left overflow-hidden text-ellipsis flex-1 line-clamp-2" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }} title={study.description}>
+                {truncateForCard(study.description)}
+              </p>
+              <div className="mt-auto pt-1">
                 <button
                   onClick={() => onNavigate(study.id)}
-                  className="w-full px-5 py-2 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 bg-accent text-contrast shadow hover:bg-cta hover:text-white focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full px-5 py-2.5 rounded-full font-semibold transition-all duration-300 flex items-center justify-center gap-2 bg-primary-accent text-white hover:bg-primary-accent/90 focus:outline-none focus:ring-2 focus:ring-primary-accent/50"
                   aria-label={`View case study for ${study.title}`}
                 >
                   View Case Study
@@ -399,74 +403,73 @@ function ProjectCard({ study, onNavigate, inView, onShowDetails }: ProjectCardPr
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        whileHover={{ y: -8 }}
+        whileHover={{ y: -6, scale: 1.02 }}
       >
-        <div className="relative overflow-hidden rounded-2xl bg-white border-2 border-gray-200 hover:border-gray-300 transition-all duration-500 shadow-lg hover:shadow-xl w-full h-[420px] flex flex-col">
-          {/* Header with tags */}
-          {(() => {
-            const pillsRef = useRef<HTMLDivElement>(null);
-            useAutoScrollOnInView(pillsRef, inView);
-            let pillLabel = 'Project';
-            if (study.id === 'copilot-case-study' || study.id === 'data-activator-case-study') {
-              pillLabel = 'Case Study';
-            }
-            return (
-              <div ref={pillsRef} className="bg-white rounded-t-2xl px-4 py-2 pb-0 flex gap-2 items-center border-b border-gray-100 min-h-[44px] flex-nowrap overflow-x-auto scrollbar-none justify-center" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-                <span className={`px-3 py-1 text-xs rounded-full font-bold transition-all duration-300 whitespace-nowrap ${pillLabel === 'Case Study' ? 'bg-indigo-800 text-white' : 'bg-primary-accent text-white'}`}>
-                  {pillLabel}
-                </span>
-              </div>
-            );
-          })()}
-          {/* Carousel */}
-          <div className="relative h-36 overflow-hidden flex items-center justify-center m-0 p-0">
-            {images.length > 1 && (
-              <>
-                <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-primary-accent hover:text-white transition-colors border border-gray-200">
-                  <span className="sr-only">Previous</span>
-                  <span className="text-xl">&#8592;</span>
-                </button>
-                <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-primary-accent hover:text-white transition-colors border border-gray-200">
-                  <span className="sr-only">Next</span>
-                  <span className="text-xl">&#8594;</span>
-                </button>
-              </>
-            )}
-            {study.id === 'next-project-wip' ? (
-              <RotatingCubeWithQuestionMark />
-            ) : study.id === 'ai-productivity' ? (
-              <img
-                src={images[carouselIndex]}
-                alt={study.title}
-                className="w-full h-36 object-cover object-center transition-transform duration-700 m-0 p-0"
-              />
-            ) : (
-              <img
-                src={images[carouselIndex]}
-                alt={study.title}
-                className="w-full h-36 object-cover object-center transition-transform duration-700 cursor-zoom-in m-0 p-0"
-                onClick={() => setLightboxOpen(true)}
-              />
-            )}
+        <div className="relative overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-300 w-full h-[420px] flex flex-col">
+          {/* Image with white space — contained, not full-bleed */}
+          <div className="px-5 pt-5">
+            <div className="relative h-40 rounded-xl overflow-hidden flex items-center justify-center opacity-80 transition-opacity duration-300 group-hover:opacity-100">
+              {images.length > 1 && (
+                <>
+                  <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-primary-accent hover:text-white transition-colors border border-gray-200">
+                    <span className="sr-only">Previous</span>
+                    <span className="text-xl">&#8592;</span>
+                  </button>
+                  <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-primary-accent hover:text-white transition-colors border border-gray-200">
+                    <span className="sr-only">Next</span>
+                    <span className="text-xl">&#8594;</span>
+                  </button>
+                </>
+              )}
+              {study.id === 'next-project-wip' ? (
+                <div className="w-full h-full flex items-center justify-center bg-gray-50 p-4">
+                  <img
+                    src={import.meta.env.BASE_URL + images[carouselIndex]}
+                    alt={study.title}
+                    className="max-w-full max-h-full object-contain"
+                  />
+                </div>
+              ) : study.id === 'ai-productivity' ? (
+                <img
+                  src={images[carouselIndex]}
+                  alt={study.title}
+                  className="w-full h-full object-cover object-center"
+                />
+              ) : (
+                <img
+                  src={images[carouselIndex]}
+                  alt={study.title}
+                  className="w-full h-full object-cover object-center cursor-zoom-in"
+                  onClick={() => setLightboxOpen(true)}
+                />
+              )}
+              {/* Tag overlay - colored for visibility */}
+              <span className="absolute top-3 left-4 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary-accent text-white shadow-md">
+                Project
+              </span>
+            </div>
           </div>
-          {/* Content */}
-          <div className="flex flex-col flex-1 p-3 pt-0">
-            <h3 className="text-lg font-bold text-primary mb-1 text-center truncate" title={study.title}>
+          {/* Title band — clear hierarchy: title leads, subtitle supports */}
+          <div className="px-5 py-4">
+            <h3 className="text-xl font-bold text-gray-900 tracking-tight text-left truncate mb-1.5" title={study.title}>
               {study.title}
             </h3>
-            <h4 className={`text-base font-semibold mb-2 text-center truncate ${getTextColorClass(study.color)}`} title={study.subtitle}>
+            <p className="text-xs font-normal text-gray-600 tracking-wide text-left truncate" title={study.subtitle}>
               {study.subtitle}
-            </h4>
-            <p className="text-gray-600 leading-relaxed mb-2 text-center text-sm overflow-hidden text-ellipsis flex-1" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }} title={study.description}>
-              {study.description}
             </p>
-            <div className="mt-auto">
+          </div>
+          {/* Content - more padding */}
+          <div className="flex flex-col flex-1 px-5 pt-4 pb-5">
+            <p className="text-gray-500 text-xs leading-relaxed mb-4 text-left overflow-hidden text-ellipsis flex-1 line-clamp-2" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }} title={study.description}>
+              {truncateForCard(study.description)}
+            </p>
+            <div className="mt-auto pt-1">
               {study.id === 'next-project-wip' ? (
                 <a
                   href="https://craftedby.ai"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full px-5 py-2 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 bg-accent text-contrast shadow hover:bg-cta hover:text-white focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full px-5 py-2.5 rounded-full font-semibold transition-all duration-300 flex items-center justify-center gap-2 border-2 border-gray-300 text-gray-700 hover:border-primary-accent hover:text-primary-accent hover:bg-primary-accent/5 focus:outline-none focus:ring-2 focus:ring-primary-accent/30"
                   aria-label="Visit Crafted By AI website"
                 >
                   Visit Website
@@ -475,7 +478,7 @@ function ProjectCard({ study, onNavigate, inView, onShowDetails }: ProjectCardPr
               ) : (
                 <button
                   onClick={() => onShowDetails(study)}
-                  className="w-full px-5 py-2 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 bg-accent text-contrast shadow hover:bg-cta hover:text-white focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full px-5 py-2.5 rounded-full font-semibold transition-all duration-300 flex items-center justify-center gap-2 border-2 border-gray-300 text-gray-700 hover:border-primary-accent hover:text-primary-accent hover:bg-primary-accent/5 focus:outline-none focus:ring-2 focus:ring-primary-accent/30"
                   aria-label={`View details for ${study.title}`}
                 >
                   View Details
