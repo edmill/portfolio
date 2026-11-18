@@ -1,0 +1,50 @@
+.v4 { --bg:#0E0F11; --surface:#16181B; --deep:#0B0C0E; --text:#EDEBE6; --sec:#B9B7B1; --muted:#9A9893; --faint:#6E6C67; --accent:#F26B3A; --accent-h:#FF8457;
+  background:var(--bg); color:var(--text); min-height:100vh; font-family:'Bricolage Grotesque',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+.v4 *, .v4 *::before, .v4 *::after { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+html, html body { background:#0E0F11; }
+.v4 a { color:var(--text); text-decoration:none; }
+.v4 a:hover { color:var(--accent); }
+.v4 h1,.v4 h2,.v4 h3,.v4 p,.v4 ul,.v4 figure,.v4 blockquote { margin:0; }
+.v4 ul { padding:0; list-style:none; }
+.v4 button { font-family:inherit; color:inherit; cursor:pointer; background:none; border:0; padding:0; text-align:inherit; }
+.v4 ::selection { background:var(--accent); color:var(--bg); }
+.v4 :focus-visible { outline:2px solid var(--accent-h); outline-offset:2px; }
+.v4 .mono { font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:500; }
+.v4 * { scrollbar-width:thin; scrollbar-color:#3A3C40 transparent; }
+.v4 *:hover { scrollbar-color:#55575C transparent; }
+.v4 ::-webkit-scrollbar { width:10px; height:10px; }
+.v4 ::-webkit-scrollbar-track { background:transparent; }
+.v4 ::-webkit-scrollbar-thumb { background:#3A3C40; border-radius:999px; border:3px solid transparent; background-clip:padding-box; }
+.v4 ::-webkit-scrollbar-thumb:hover { background:var(--accent); background-clip:padding-box; }
+.v4 .sec { scroll-margin-top:80px; padding-bottom:clamp(72px,9vw,120px); }
+.v4 .h2 { font-weight:800; font-size:clamp(36px,4.6vw,64px); line-height:.95; letter-spacing:-.04em; }
+.v4 .btn { display:inline-flex; align-items:center; gap:8px; font-weight:700; transition:background .2s,color .2s,border-color .2s; }
+.v4 .btn-accent { background:var(--accent); color:var(--bg); } .v4 .btn-accent:hover { background:var(--accent-h); color:var(--bg); }
+.v4 .btn-light { background:var(--text); color:var(--bg); } .v4 .btn-light:hover { background:var(--accent); color:var(--bg); }
+.v4 .btn-light-w:hover { background:#fff; color:var(--bg); }
+.v4 .btn-out { border:1px solid rgba(237,235,230,.2); font-weight:500; } .v4 .btn-out:hover { border-color:var(--text); }
+.v4 .sq { width:44px; height:44px; border-radius:10px; border:1px solid rgba(237,235,230,.15); display:grid; place-items:center; font-size:18px; } .v4 .sq:hover { border-color:var(--text); }
+.v4 .row:hover { background:rgba(237,235,230,.06); }
+.v4 .row.sel { background:rgba(242,107,58,.12); }
+.v4 .card-lift { transition:transform .3s,border-color .3s; } .v4 .card-lift:hover { transform:translateY(-4px); border-color:rgba(242,107,58,.5); }
+.v4 .x:hover { background:rgba(237,235,230,.08); color:var(--text); }
+.v4 .round:hover { background:var(--accent); color:var(--bg); }
+.v4 .thumb:hover { opacity:1 !important; }
+.v4 .contact a { color:#0E0F11; } .v4 .contact a:hover { color:#0E0F11; opacity:.7; }
+.v4 .contact a.contact-btn, .v4 .contact a.contact-btn:hover { color:var(--text); opacity:1; background:#0E0F11; }
+.v4 .contact a.contact-btn:hover { background:#25272B; }
+.v4 .contact-out:hover { background:rgba(14,15,17,.08); }
+@keyframes v4slide { from { transform:translateX(40px); opacity:0; } to { transform:none; opacity:1; } }
+.v4 .panel { animation:v4slide .3s ease-out; }
+@media (prefers-reduced-motion:reduce) { .v4 .panel { animation:none; } html { scroll-behavior:auto; } .v4 .card-lift { transition:none; } }
+
+.v4 .btn:active, .v4 .sq:active, .v4 .row:active { transform:scale(.96); }
+.v4 .btn, .v4 .sq { transition:background .2s,color .2s,border-color .2s,transform .15s; }
+.v4 .proj-img { transition:transform .8s cubic-bezier(.2,.7,.2,1); }
+.v4 article:hover .proj-img { transform:scale(1.06); }
+.v4 .sq:hover { transform:translateY(-2px); }
+.v4 nav a:not(.btn-accent) { position:relative; }
+.v4 nav a:not(.btn-accent)::after { content:''; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform .3s cubic-bezier(.2,.7,.2,1); }
+.v4 nav a:not(.btn-accent):hover::after { transform:scaleX(1); }
+@media (prefers-reduced-motion:reduce) { .v4 .proj-img, .v4 .btn, .v4 .sq { transition:none; } .v4 article:hover .proj-img { transform:none; } }
