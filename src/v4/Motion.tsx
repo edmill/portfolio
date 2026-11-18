@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode, type CSSProperties } from 'react';
-import { motion, animate, useInView, useScroll, useSpring } from 'framer-motion';
+import { motion, animate, useInView, useScroll } from 'framer-motion';
 
 export const ease: [number, number, number, number] = [0.2, 0.7, 0.2, 1];
 
@@ -32,6 +32,5 @@ export function CountUp({ value }: { value: string }) {
 /** Thin accent progress bar tracking page scroll. */
 export function ScrollBar() {
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 });
-  return <motion.div aria-hidden style={{ position: 'fixed', top: 0, left: 0, right: 0, height: 3, zIndex: 30, background: '#F26B3A', transformOrigin: '0 50%', scaleX }} />;
+  return <motion.div aria-hidden style={{ position: 'fixed', top: 0, left: 0, right: 0, height: 3, zIndex: 30, background: '#F26B3A', transformOrigin: '0 50%', scaleX: scrollYProgress, willChange: 'transform' }} />;
 }

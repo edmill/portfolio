@@ -16,19 +16,52 @@ function useCopy() {
   return { label: copied ? 'Copied ✓' : 'Copy email', copy };
 }
 
+const NAV = [
+  { id: 'apps', label: 'Current projects' },
+  { id: 'offer', label: 'What I do' },
+  { id: 'work', label: 'Past projects' },
+  { id: 'experience', label: 'Experience' },
+];
+const WATCH = ['apps', 'offer', 'work', 'about', 'experience', 'contact'];
+
+/** Id of the section crossing the line ~35% down the viewport, or null (hero / unlisted sections). */
+function useActiveSection() {
+  const [active, setActive] = useState<string | null>(null);
+  useEffect(() => {
+    const els = WATCH.map(id => document.getElementById(id)).filter((e): e is HTMLElement => !!e);
+    const update = () => {
+      const line = window.innerHeight * 0.35;
+      let cur: string | null = null;
+      for (const el of els) {
+        const r = el.getBoundingClientRect();
+        if (r.top <= line && r.bottom > line) cur = el.id;
+      }
+      setActive(cur);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => { window.removeEventListener('scroll', update); window.removeEventListener('resize', update); };
+  }, []);
+  return active;
+}
+
 export function Header() {
+  const active = useActiveSection();
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, padding: '18px 0', background: 'rgba(14,15,17,.88)', backdropFilter: 'blur(12px)' }}>
       <a href="#top" style={{ display: 'flex', alignItems: 'center', gap: 10, fontWeight: 800, fontSize: 18, letterSpacing: '-.02em' }}>
         <span style={{ width: 30, height: 30, borderRadius: 8, background: '#F26B3A', color: '#0E0F11', display: 'grid', placeItems: 'center', fontSize: 14, fontWeight: 800 }}>E</span>
         Ed Miller
       </a>
-      <nav style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 'clamp(14px,2.4vw,28px)', fontSize: 15 }}>
-        <a href="#apps">Current projects</a>
-        <a href="#offer">What I do</a>
-        <a href="#work">Past projects</a>
-        <a href="#experience">Experience</a>
-        <a href="#contact" className="btn-accent" style={{ padding: '9px 16px', borderRadius: 8, fontWeight: 700 }}>Hire me</a>
+      <nav style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 'clamp(2px,1vw,8px)', fontSize: 15 }}>
+        {NAV.map(n => (
+          <a key={n.id} href={`#${n.id}`} className="navlink" aria-current={active === n.id ? 'true' : undefined}>
+            {active === n.id && <motion.span layoutId="navpill" aria-hidden className="navpill" transition={{ type: 'spring', stiffness: 380, damping: 32 }} />}
+            <span style={{ position: 'relative' }}>{n.label}</span>
+          </a>
+        ))}
+        <a href="#contact" className="btn-accent" style={{ padding: '9px 16px', borderRadius: 8, fontWeight: 700, marginLeft: 8 }}>Hire me</a>
       </nav>
     </header>
   );
